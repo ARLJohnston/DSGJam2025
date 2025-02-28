@@ -2,9 +2,11 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
 
-var jump_charge = 0
+var jump_charge = 0  
+const MAX_JUMP_CHARGE = -800   
+const JUMP_GROWTH = 250
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -13,8 +15,9 @@ func _physics_process(delta: float) -> void:
 		
 
 	# Handle jump.
-	if Input.is_action_pressed("ui_accept") && is_on_floor():
-		jump_charge -= 10
+	if Input.is_action_pressed("ui_accept") && is_on_floor() && jump_charge > MAX_JUMP_CHARGE:
+		jump_charge -= JUMP_GROWTH * delta 
+		print(jump_charge)
 	
 	if Input.is_action_just_released("ui_accept"):
 		velocity.y = jump_charge
