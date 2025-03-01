@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=32 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://u_dead_mate.gd" id="2_kugpk"]
 [ext_resource type="Script" path="res://finish_line.gd" id="4_0m5go"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
-[ext_resource type="Script" path="res://shop.gd" id="6_6wxs6"]
 [ext_resource type="Script" path="res://shop_ui.gd" id="7_0w4do"]
 [ext_resource type="Texture2D" uid="uid://1s0hmr78bndd" path="res://Thrusters.png" id="9_8fvsq"]
 [ext_resource type="Script" path="res://thruster.gd" id="11_n385k"]
@@ -56,14 +55,6 @@ size = Vector2(419, 75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5om6v"]
 size = Vector2(577, 302)
-
-[sub_resource type="Gradient" id="Gradient_akg74"]
-colors = PackedColorArray(0.950925, 0, 0.403764, 1, 0.351712, 0.786249, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hsdpo"]
-gradient = SubResource("Gradient_akg74")
-width = 128
-height = 96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jc6g7"]
 shader = ExtResource("12_kuat7")
@@ -188,31 +179,13 @@ offset_bottom = -85.0
 color = Color(0, 1, 0, 1)
 
 [node name="Shop" type="Node2D" parent="."]
-script = ExtResource("6_6wxs6")
 
-[node name="Background" type="Sprite2D" parent="Shop"]
-position = Vector2(-606, -50)
-scale = Vector2(8.01563, 4.9375)
-texture = SubResource("GradientTexture2D_hsdpo")
-
-[node name="ItemText" type="Label" parent="Shop/Background"]
-offset_left = -62.0
-offset_top = -20.0
-offset_right = -1.0
-offset_bottom = 3.0
-
-[node name="TitleText" type="Label" parent="Shop/Background"]
-offset_left = -37.6764
-offset_top = -48.0
-offset_right = 44.3236
-offset_bottom = -25.0
-text = "Buys tuff"
-
-[node name="Button" type="Button" parent="Shop/Background"]
-offset_left = 23.7037
-offset_top = -22.6835
-offset_right = 61.7037
-offset_bottom = 8.31645
+[node name="Button" type="Button" parent="Shop"]
+offset_left = -1136.0
+offset_top = 457.0
+offset_right = -984.0
+offset_bottom = 534.0
+theme_override_font_sizes/font_size = 50
 text = "Buy"
 
 [node name="ShopUI" type="CanvasLayer" parent="."]
@@ -419,7 +392,7 @@ text = "Let's play"
 [connection signal="body_entered" from="LandingZone/Bullseye" to="LandingZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LandingZone/Double" to="LandingZone" method="_on_double_body_entered"]
 [connection signal="body_entered" from="LandingZone/Single" to="LandingZone" method="_on_single_body_entered"]
-[connection signal="pressed" from="Shop/Background/Button" to="ShopUI" method="_on_button_pressed"]
+[connection signal="pressed" from="Shop/Button" to="ShopUI" method="_on_button_pressed"]
 [connection signal="pressed" from="ShopUI/ColorRect/ThrusterBorder/BuyThrustUpgrade" to="ShopUI/ColorRect/ThrusterBorder" method="_on_buy_thrust_upgrade_pressed"]
 [connection signal="pressed" from="ShopUI/ColorRect/XJump/BuyXJumpUpgrade" to="ShopUI/ColorRect/XJump" method="_on_buy_thrust_upgrade_pressed"]
 [connection signal="pressed" from="ShopUI/ColorRect/JetpackBorder/BuyJetpackUpgrade" to="ShopUI/ColorRect/JetpackBorder" method="_on_buy_thrust_upgrade_pressed"]
