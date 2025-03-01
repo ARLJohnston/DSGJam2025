@@ -67,17 +67,14 @@ height = 96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jc6g7"]
 shader = ExtResource("12_kuat7")
-shader_parameter/shine_enabled = false
 
 [sub_resource type="GDScript" id="GDScript_3i8dr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_56qdg"]
 shader = ExtResource("12_kuat7")
-shader_parameter/shine_enabled = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrk3d"]
 shader = ExtResource("12_kuat7")
-shader_parameter/shine_enabled = false
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")

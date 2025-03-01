@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform bool shine_enabled_thrust = false; // Control shine from GDScript
 
 void fragment() {
     vec2 uv = UV;
@@ -8,7 +9,7 @@ void fragment() {
     vec4 tex_color = texture(TEXTURE, uv) * COLOR; // Uses sprite's modulated color
     
     // Only apply the shine effect if the pixel is not fully transparent
-    if (tex_color.a > 0.1) { // Avoid affecting transparent areas
+    if (shine_enabled_thrust && tex_color.a > 0.1) { // Avoid affecting transparent areas
         float shine = sin(TIME * 3.0 + uv.x * 10.0) * 0.5 + 0.5;
 
         // Create a white shine overlay
