@@ -5,9 +5,10 @@ const BASE_MAX_ZOOM = 0.7;
 const BASE_MIN_ZOOM = 0.2;
 
 const SPEED = 800.0
-var jump_charge = 0
 const MAX_JUMP_CHARGE = -5000
 const JUMP_GROWTH = 1250
+
+var jump_charge = 0
 var stretch_ratio = 1
 var original_scale = Vector2()
 var gravity = 980.0
@@ -27,11 +28,13 @@ func _ready() -> void:
 	gradient.colors = gradient_data.values()
 
 func _reset() -> void:
-	jump_charge = 0
 	velocity = Vector2(0,0)
+		
+	jump_charge = 0
 	is_jumping = false
-	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
 	can_move = true;
+	
+	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
