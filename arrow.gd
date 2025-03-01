@@ -15,6 +15,5 @@ func _process(delta: float) -> void:
 		rotation_speed *= -1    
 	 
 	if (self.visible):  
-		self.rotation += delta * rotation_speed      
-		
-	
+		self.rotation += delta * rotation_speed
+		self.rotation = snappedf(self.rotation, 0.01)
