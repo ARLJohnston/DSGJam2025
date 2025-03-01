@@ -6,6 +6,7 @@ var ground_spawn_x: float;
 var level = 1;
 var gap = 0;
 var distance = 0;
+var isk = 0;
 
 var start_line_spawn_y: float;
 var finish_line_spawn_y: float;
@@ -67,11 +68,14 @@ func _on_win() -> void:
 		next_gap = 100 + (level ** 4);
 	$GapGround.position.x = ground_spawn_x + next_gap;
 	
+	isk += round(distance / 100 * 1.2);
+	
 	$CanvasLayer/DistanceLabel.modulate = Color.GREEN;
 	
 	_reset()
 
 func _on_ground_touched() -> void:
+	$Player/CharacterBody2D.can_move = false;
 	waiting_for_player_to_stop_after_ground_hit = true;
 
 func _on_start() -> void:
@@ -88,6 +92,8 @@ func _on_start() -> void:
 func _on_die() -> void:
 	print("You dead.")
 	
+	isk += round((distance / 100) * 0.5);
+	
 	$CanvasLayer/DistanceLabel.modulate = Color.RED;
 	
 	_reset()
@@ -97,8 +103,9 @@ func _reset() -> void:
 	$GapGround/LandingZone.has_scored = false
 	
 	gap = $GapGround/FinishLine.global_position.x - $FixedGround/StartLine.global_position.x
-	var gap_text = round(gap / 100);
-	$CanvasLayer/LevelLabel.text = "(%dm gap)" % gap_text
+	$CanvasLayer/LevelLabel.text = "(%dm gap)" % round(gap / 100);
+
+	$CanvasLayer/IskLabel.text = "§%d ISK" % isk;
 	
 	$Player/CharacterBody2D.position = player_spawn; 
 	$Player/CharacterBody2D._reset()

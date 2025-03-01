@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player;
 
 const BASE_MAX_ZOOM = 0.7;
 const BASE_MIN_ZOOM = 0.2;
@@ -11,6 +12,7 @@ var stretch_ratio = 1
 var original_scale = Vector2()
 var gravity = 980.0
 var is_jumping = false
+var can_move = true
 
 var gradient_data = {
 	0.0 : Color.GREEN,
@@ -29,25 +31,27 @@ func _reset() -> void:
 	velocity = Vector2(0,0)
 	is_jumping = false
 	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
+	can_move = true;
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if Input.is_action_pressed("ui_accept") and is_on_floor() and jump_charge > MAX_JUMP_CHARGE:
-		jump_charge -= JUMP_GROWTH * delta
-		$DirectionArrow.visible = true
-		$DirectionArrow.scale = original_scale
-		stretch_ratio = abs(jump_charge / MAX_JUMP_CHARGE)
-		$DirectionArrow.apply_scale(Vector2(1, stretch_ratio))
-		$DirectionArrow.modulate = gradient.sample(jump_charge / MAX_JUMP_CHARGE)
+	if can_move:
+		if Input.is_action_pressed("ui_accept") and is_on_floor() and jump_charge > MAX_JUMP_CHARGE:
+			jump_charge -= JUMP_GROWTH * delta
+			$DirectionArrow.visible = true
+			$DirectionArrow.scale = original_scale
+			stretch_ratio = abs(jump_charge / MAX_JUMP_CHARGE)
+			$DirectionArrow.apply_scale(Vector2(1, stretch_ratio))
+			$DirectionArrow.modulate = gradient.sample(jump_charge / MAX_JUMP_CHARGE)
 
-	if Input.is_action_just_released("ui_accept") and is_on_floor():
-		jump()
+		if Input.is_action_just_released("ui_accept") and is_on_floor():
+			jump()
 
 	if (is_on_floor()):
 		var move_direction := Input.get_axis("ui_left", "ui_right")
-		if move_direction:
+		if can_move and move_direction:
 			velocity.x = move_direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
