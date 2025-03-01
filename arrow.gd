@@ -10,7 +10,7 @@ func _ready() -> void:
 	self.visible = false  
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:    
+func _physics_process(delta: float) -> void:    
 	if (self.rotation > MAX_ANGLE || self.rotation < MIN_ANGLE):   
 		rotation_speed *= -1    
 	 
