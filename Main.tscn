@@ -1,22 +1,104 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=14 format=3 uid="uid://e3g6ufo44mc7"]
 
-[ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
-[ext_resource type="Texture2D" uid="uid://bl755cmogpf3b" path="res://icon.svg" id="2_nqjrn"]
+[ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
+[ext_resource type="PackedScene" uid="uid://edv2rppheddu" path="res://Player.tscn" id="1_uw5wn"]
+[ext_resource type="Script" path="res://u_dead_mate.gd" id="2_kugpk"]
+[ext_resource type="Script" path="res://finish_line.gd" id="4_0m5go"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m5rkr"]
+size = Vector2(128, 2049)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnde0"]
+size = Vector2(128, 2048)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tsuic"]
+size = Vector2(128, 2048)
+
+[sub_resource type="Gradient" id="Gradient_r2hlu"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s7cpj"]
+gradient = SubResource("Gradient_r2hlu")
+width = 16
+height = 1280
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b80cj"]
+
+[sub_resource type="Gradient" id="Gradient_843x5"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_73a55"]
+gradient = SubResource("Gradient_843x5")
+fill_to = Vector2(0.256881, 0)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_fcgpp")
 
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="UDeadMate" type="Node2D" parent="."]
+position = Vector2(523, 2527)
+script = ExtResource("2_kugpk")
+
+[node name="Area2D" type="Area2D" parent="UDeadMate"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UDeadMate/Area2D"]
+shape = SubResource("WorldBoundaryShape2D_1te06")
+
+[node name="FixedGround" type="StaticBody2D" parent="."]
+position = Vector2(-2929, 500)
+scale = Vector2(50, 1)
 collision_layer = 2
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(259.875, 293.875)
-scale = Vector2(5.56445, 0.404297)
-texture = ExtResource("2_nqjrn")
+[node name="Sprite2D" type="Sprite2D" parent="FixedGround"]
+position = Vector2(0, 960)
+texture = SubResource("PlaceholderTexture2D_m5rkr")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-position = Vector2(259.875, 293.875)
-scale = Vector2(5.56445, 0.404297)
-polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FixedGround"]
+position = Vector2(0, 960)
+shape = SubResource("RectangleShape2D_mnde0")
+
+[node name="GapGround" type="Node2D" parent="."]
+position = Vector2(995, 500)
+
+[node name="Ground" type="StaticBody2D" parent="GapGround"]
+scale = Vector2(10, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="GapGround/Ground"]
+position = Vector2(0, 960)
+texture = SubResource("PlaceholderTexture2D_tsuic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/Ground"]
+position = Vector2(0, 960)
+shape = SubResource("RectangleShape2D_mnde0")
+
+[node name="FinishLine" type="Node2D" parent="GapGround"]
+position = Vector2(0, -702)
+script = ExtResource("4_0m5go")
+
+[node name="Sprite2D" type="Sprite2D" parent="GapGround/FinishLine"]
+texture = SubResource("GradientTexture2D_s7cpj")
+
+[node name="Area2D" type="Area2D" parent="GapGround/FinishLine"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/FinishLine/Area2D"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_b80cj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.27596e-12, 3685)
+rotation = 1.5708
+scale = Vector2(100, 10000)
+texture = SubResource("GradientTexture2D_73a55")
+
+[connection signal="body_entered" from="UDeadMate/Area2D" to="UDeadMate" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="GapGround/FinishLine/Area2D" to="GapGround/FinishLine" method="_on_area_2d_body_entered"]
