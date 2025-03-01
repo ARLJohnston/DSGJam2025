@@ -2,7 +2,10 @@ extends Node2D
 
 var player_spawn: Vector2;
 var ground_spawn_x: float;
+
 var level = 1;
+var gap = 0;
+var distance = 0;
 
 var start_line_spawn_y: float;
 var finish_line_spawn_y: float;
@@ -21,18 +24,19 @@ func _ready() -> void:
 	$FixedGround.connect("start", _on_start)
 	$GapGround.connect("ground_touched", _on_ground_touched)
 	$DeathZone.connect("die", _on_die)
+	
+	_reset()
 
 func _process(delta: float) -> void:
 	_pin_line_marker_y($FixedGround/StartLine, start_line_spawn_y)
 	_pin_line_marker_y($GapGround/FinishLine, finish_line_spawn_y)
 	
 	if started:
-		var distance = $Player/CharacterBody2D.global_position.x - $FixedGround/StartTrigger.global_position.x
+		distance = $Player/CharacterBody2D.global_position.x - $FixedGround/StartTrigger.global_position.x
 		distance = max(0, distance);
-		distance = distance / 100;
-		distance = round(distance);
+		var distance_text = round(distance / 100);
 		
-		$CanvasLayer/DistanceLabel.text = "Distance: %dm" % distance
+		$CanvasLayer/DistanceLabel.text = "%dm" % distance_text
 		
 	# Player touched the ground and we're waiting for them to stop moving.
 	if waiting_for_player_to_stop_after_ground_hit and not waiting_for_post_win_timer:
@@ -49,8 +53,15 @@ func _process(delta: float) -> void:
 		
 func _on_win() -> void:
 	print("You win.")
+
+	# Find the next "level" based on our previous distance
+	var next_gap = -INF;
+	while next_gap <= distance:
+		level = level + 1;
+		next_gap = 100 + (level ** 4);
+	$GapGround.position.x = ground_spawn_x + next_gap;
 	
-	level = level + 1;
+	$CanvasLayer/DistanceLabel.modulate = Color.GREEN;
 	
 	_reset()
 
@@ -63,15 +74,24 @@ func _on_start() -> void:
 		return
 		
 	print("You've started!")
+	
+	$CanvasLayer/DistanceLabel.modulate = Color.WHITE;
+	
 	started = true
 	
 func _on_die() -> void:
 	print("You dead.")
+	
+	$CanvasLayer/DistanceLabel.modulate = Color.RED;
+	
 	_reset()
 
 func _reset() -> void:
-	$GapGround.position.x = ground_spawn_x + 100 + (level ** 5) 
 	$GapGround/LandingZone.has_scored = false
+	
+	gap = $GapGround/FinishLine.global_position.x - $FixedGround/StartLine.global_position.x
+	var gap_text = round(gap / 100);
+	$CanvasLayer/LevelLabel.text = "(%dm gap)" % gap_text
 	
 	$Player/CharacterBody2D.position = player_spawn; 
 	$Player/CharacterBody2D._reset()

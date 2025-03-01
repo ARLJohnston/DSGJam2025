@@ -72,13 +72,30 @@ script = ExtResource("1_fcgpp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 64.0
+offset_right = 150.0
+offset_bottom = 109.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "(idk yet lol gap)"
+horizontal_alignment = 1
+
 [node name="DistanceLabel" type="Label" parent="CanvasLayer"]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 354.0
-offset_bottom = 104.0
-theme_override_font_sizes/font_size = 32
-text = "Distance: idk yet lol"
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "yeet!"
+horizontal_alignment = 1
 
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
 
