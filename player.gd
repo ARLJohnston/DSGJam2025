@@ -12,17 +12,14 @@ var is_jumping = false
 func _ready() -> void:
 	original_scale = $DirectionArrow.scale 
 	
-	
 func _reset() -> void: 
 	jump_charge = 0 
 	velocity = Vector2(0,0) 
 	is_jumping = false
 
 func _physics_process(delta: float) -> void:
-
 	if not is_on_floor():
 		velocity.y += gravity * delta
-		velocity.x = move_toward(velocity.x, 0, 10 * delta)
 	
 	if Input.is_action_pressed("ui_accept") and is_on_floor() and jump_charge > MAX_JUMP_CHARGE:
 		jump_charge -= JUMP_GROWTH * delta

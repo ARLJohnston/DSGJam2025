@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=22 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
@@ -13,6 +13,15 @@ size = Vector2(128, 2048)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycip7"]
 size = Vector2(128, 2048)
+
+[sub_resource type="Gradient" id="Gradient_2ecsy"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qldn3"]
+gradient = SubResource("Gradient_2ecsy")
+width = 16
+height = 1024
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nc1c3"]
 
@@ -35,13 +44,17 @@ size = Vector2(128, 2048)
 size = Vector2(128, 2048)
 
 [sub_resource type="Gradient" id="Gradient_r2hlu"]
+interpolation_mode = 1
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 0, 1)
+colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_s7cpj"]
 gradient = SubResource("Gradient_r2hlu")
 width = 16
 height = 1024
+fill_to = Vector2(0, 0.1)
+repeat = 1
+metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_843x5"]
 interpolation_mode = 2
@@ -79,6 +92,11 @@ texture = SubResource("PlaceholderTexture2D_m5rkr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FixedGround"]
 position = Vector2(0, 960)
 shape = SubResource("RectangleShape2D_ycip7")
+
+[node name="StartLine" type="Sprite2D" parent="FixedGround"]
+position = Vector2(63.84, -5184)
+scale = Vector2(0.02, 10)
+texture = SubResource("GradientTexture2D_qldn3")
 
 [node name="GapGround" type="Node2D" parent="."]
 position = Vector2(6756, 500)
@@ -153,10 +171,10 @@ position = Vector2(0, 960)
 texture = SubResource("PlaceholderTexture2D_tsuic")
 
 [node name="FinishLine" type="Sprite2D" parent="GapGround"]
-position = Vector2(-6400, -10303)
+position = Vector2(-6392, -5184)
 scale = Vector2(1, 10)
 texture = SubResource("GradientTexture2D_s7cpj")
-centered = false
+region_rect = Rect2(0, 1000, 16, 10000)
 
 [node name="Fog" type="Sprite2D" parent="."]
 position = Vector2(7.27596e-12, 3685)
