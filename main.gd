@@ -8,8 +8,8 @@ var level = 1;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_spawn = $Player/CharacterBody2D.position;
-	ground_x_init = $GapGround.position.x;  
-	landing_zone_x_init = $LandingZone.position.x; 
+	ground_x_init = $GapGround.position.x;
+	landing_zone_x_init = $LandingZone.position.x;
 	
 	
 	$UDeadMate.connect("die", _on_die)
