@@ -54,9 +54,9 @@ func _process(delta: float) -> void:
 func _on_win() -> void:
 	print("You win.")
 
-	# Find the next "level" based on our previous distance
+	# Scale the next "level" based on our previous distance but maintain the curve.
 	var next_gap = -INF;
-	while next_gap <= distance:
+	while next_gap < distance:
 		level = level + 1;
 		next_gap = 100 + (level ** 4);
 	$GapGround.position.x = ground_spawn_x + next_gap;
