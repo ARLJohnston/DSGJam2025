@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=35 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
@@ -7,12 +7,14 @@
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
 [ext_resource type="Script" path="res://shop.gd" id="6_6wxs6"]
 [ext_resource type="Script" path="res://shop_ui.gd" id="7_0w4do"]
-[ext_resource type="Texture2D" uid="uid://bl755cmogpf3b" path="res://icon.svg" id="9_vv2q7"]
+[ext_resource type="Texture2D" uid="uid://1s0hmr78bndd" path="res://Thrusters.png" id="9_8fvsq"]
 [ext_resource type="Script" path="res://thruster.gd" id="11_n385k"]
 [ext_resource type="Script" path="res://jetpack.gd" id="12_8nhr2"]
 [ext_resource type="Texture2D" uid="uid://lmgxg64jw66l" path="res://assets/star_gradient.png" id="12_dqjo1"]
 [ext_resource type="Shader" path="res://glistening.gdshader" id="12_kuat7"]
 [ext_resource type="Script" path="res://x_jump.gd" id="12_m18w5"]
+[ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://Doubledash.png" id="13_mw56h"]
+[ext_resource type="Texture2D" uid="uid://dbx2bst788lb1" path="res://assets/Jetpack.png" id="14_0rkim"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
@@ -240,8 +242,8 @@ script = ExtResource("11_n385k")
 
 [node name="Icon2" type="Sprite2D" parent="ShopUI/ColorRect/ThrusterBorder"]
 position = Vector2(111, 83)
-scale = Vector2(0.757812, 0.757812)
-texture = ExtResource("9_vv2q7")
+scale = Vector2(5.971, 4.971)
+texture = ExtResource("9_8fvsq")
 
 [node name="ThrustersLabel" type="Label" parent="ShopUI/ColorRect/ThrusterBorder"]
 layout_mode = 0
@@ -293,8 +295,8 @@ script = ExtResource("12_m18w5")
 
 [node name="Icon2" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
 position = Vector2(111, 83)
-scale = Vector2(0.757812, 0.757812)
-texture = ExtResource("9_vv2q7")
+scale = Vector2(5.971, 4.971)
+texture = ExtResource("13_mw56h")
 
 [node name="XJumpLabel" type="Label" parent="ShopUI/ColorRect/XJump"]
 layout_mode = 0
@@ -346,9 +348,9 @@ editor_only = false
 script = ExtResource("12_8nhr2")
 
 [node name="Icon2" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-position = Vector2(111, 83)
-scale = Vector2(0.757812, 0.757812)
-texture = ExtResource("9_vv2q7")
+position = Vector2(109, 75)
+scale = Vector2(5.9707, 4.9707)
+texture = ExtResource("14_0rkim")
 
 [node name="ThrustersLabel" type="Label" parent="ShopUI/ColorRect/JetpackBorder"]
 layout_mode = 0
