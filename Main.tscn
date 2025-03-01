@@ -7,12 +7,12 @@
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
 [ext_resource type="Script" path="res://shop.gd" id="6_6wxs6"]
 [ext_resource type="Script" path="res://shop_ui.gd" id="7_0w4do"]
-[ext_resource type="Script" path="res://item.gd" id="8_ha1y3"]
 [ext_resource type="Texture2D" uid="uid://bl755cmogpf3b" path="res://icon.svg" id="9_vv2q7"]
-[ext_resource type="Texture2D" uid="uid://31y471ietg81" path="res://assets/star.png" id="10_iinf3"]
 [ext_resource type="Script" path="res://thruster.gd" id="11_n385k"]
+[ext_resource type="Script" path="res://jetpack.gd" id="12_8nhr2"]
 [ext_resource type="Texture2D" uid="uid://lmgxg64jw66l" path="res://assets/star_gradient.png" id="12_dqjo1"]
 [ext_resource type="Shader" path="res://glistening.gdshader" id="12_kuat7"]
+[ext_resource type="Script" path="res://x_jump.gd" id="12_m18w5"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
@@ -65,14 +65,17 @@ height = 96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jc6g7"]
 shader = ExtResource("12_kuat7")
+shader_parameter/shine_enabled = false
 
 [sub_resource type="GDScript" id="GDScript_3i8dr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_56qdg"]
 shader = ExtResource("12_kuat7")
+shader_parameter/shine_enabled = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lrk3d"]
 shader = ExtResource("12_kuat7")
+shader_parameter/shine_enabled = false
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")
@@ -224,70 +227,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.313726, 0.313726, 0.313726, 1)
 
-[node name="JetpackBorder" type="ReferenceRect" parent="ShopUI/ColorRect"]
-layout_mode = 0
-border_color = Color(1, 0.941298, 0.955037, 1)
-border_width = 5.0
-editor_only = false
-script = ExtResource("8_ha1y3")
-
-[node name="BuyJetpackUpgrade" type="Button" parent="ShopUI/ColorRect/JetpackBorder"]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 411.0
-offset_right = 254.0
-offset_bottom = 447.0
-text = "Buy upgrade "
-icon_alignment = 1
-
-[node name="Label" type="Label" parent="ShopUI/ColorRect/JetpackBorder"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_top = 23.5
-offset_right = 1.0
-offset_bottom = 46.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Jetpack"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Icon" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-position = Vector2(194, 254)
-scale = Vector2(0.757812, 0.757812)
-texture = ExtResource("9_vv2q7")
-
-[node name="UpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-visible = false
-z_index = 10
-position = Vector2(59, 187)
-scale = Vector2(2.125, 1.875)
-texture = ExtResource("10_iinf3")
-
-[node name="UpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-visible = false
-z_index = 10
-position = Vector2(102.924, 261.723)
-scale = Vector2(2.125, 1.875)
-texture = ExtResource("10_iinf3")
-
-[node name="UpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-visible = false
-z_index = 10
-position = Vector2(111, 187)
-scale = Vector2(2.3125, 1.875)
-texture = ExtResource("10_iinf3")
-
-[node name="UpgradeLevelStar4" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
-z_index = 10
-position = Vector2(115.75, 188)
-scale = Vector2(2.90625, 2)
-texture = ExtResource("10_iinf3")
-
 [node name="ThrusterBorder" type="ReferenceRect" parent="ShopUI/ColorRect"]
 layout_mode = 0
 offset_left = 449.0
@@ -341,35 +280,112 @@ offset_right = 149.0
 offset_bottom = 267.0
 text = "Buy upgrade "
 
-[node name="Label2" type="Label" parent="ShopUI/ColorRect"]
+[node name="XJump" type="ReferenceRect" parent="ShopUI/ColorRect"]
 layout_mode = 0
-offset_left = 874.0
-offset_top = 317.0
-offset_right = 983.0
-offset_bottom = 340.0
-text = "X Jump"
+offset_left = 818.0
+offset_top = 167.0
+offset_right = 1036.0
+offset_bottom = 388.0
+border_color = Color(1, 0.941298, 0.955037, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("12_m18w5")
+
+[node name="Icon2" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+position = Vector2(111, 83)
+scale = Vector2(0.757812, 0.757812)
+texture = ExtResource("9_vv2q7")
+
+[node name="XJumpLabel" type="Label" parent="ShopUI/ColorRect/XJump"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 139.0
+offset_right = 165.0
+offset_bottom = 162.0
+text = "Double Jump
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Icon10" type="Sprite2D" parent="ShopUI/ColorRect"]
-position = Vector2(852, 360)
-scale = Vector2(0.246094, 0.238281)
+[node name="XJumpUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_jc6g7")
+position = Vector2(47.5, 193)
+scale = Vector2(1.9375, 1.875)
+texture = ExtResource("12_dqjo1")
+script = SubResource("GDScript_3i8dr")
+
+[node name="XJumpUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_56qdg")
+position = Vector2(107, 193.5)
+scale = Vector2(1.938, 1.776)
+texture = ExtResource("12_dqjo1")
+
+[node name="XJumpUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_lrk3d")
+position = Vector2(166, 192.5)
+scale = Vector2(1.938, 1.8125)
+texture = ExtResource("12_dqjo1")
+
+[node name="BuyXJumpUpgrade" type="Button" parent="ShopUI/ColorRect/XJump"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 231.0
+offset_right = 149.0
+offset_bottom = 267.0
+text = "Buy upgrade "
+
+[node name="JetpackBorder" type="ReferenceRect" parent="ShopUI/ColorRect"]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 172.0
+offset_right = 321.0
+offset_bottom = 393.0
+border_color = Color(1, 0.941298, 0.955037, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("12_8nhr2")
+
+[node name="Icon2" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
+position = Vector2(111, 83)
+scale = Vector2(0.757812, 0.757812)
 texture = ExtResource("9_vv2q7")
 
-[node name="Icon11" type="Sprite2D" parent="ShopUI/ColorRect"]
-position = Vector2(852, 360)
-scale = Vector2(0.246094, 0.238281)
-texture = ExtResource("9_vv2q7")
+[node name="ThrustersLabel" type="Label" parent="ShopUI/ColorRect/JetpackBorder"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 139.0
+offset_right = 165.0
+offset_bottom = 162.0
+text = "Jetpack"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Icon12" type="Sprite2D" parent="ShopUI/ColorRect"]
-position = Vector2(929, 362)
-scale = Vector2(0.246094, 0.238281)
-texture = ExtResource("9_vv2q7")
+[node name="JetpackUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
+material = SubResource("ShaderMaterial_jc6g7")
+position = Vector2(47.5, 193)
+scale = Vector2(1.9375, 1.875)
+texture = ExtResource("12_dqjo1")
+script = SubResource("GDScript_3i8dr")
 
-[node name="Icon13" type="Sprite2D" parent="ShopUI/ColorRect"]
-position = Vector2(999, 360)
-scale = Vector2(0.246094, 0.238281)
-texture = ExtResource("9_vv2q7")
+[node name="JetpackUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
+material = SubResource("ShaderMaterial_56qdg")
+position = Vector2(107, 193.5)
+scale = Vector2(1.938, 1.776)
+texture = ExtResource("12_dqjo1")
+
+[node name="JetpackUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/JetpackBorder"]
+material = SubResource("ShaderMaterial_lrk3d")
+position = Vector2(166, 192.5)
+scale = Vector2(1.938, 1.8125)
+texture = ExtResource("12_dqjo1")
+
+[node name="BuyJetpackUpgrade" type="Button" parent="ShopUI/ColorRect/JetpackBorder"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 231.0
+offset_right = 149.0
+offset_bottom = 267.0
+text = "Buy upgrade "
 
 [node name="Label" type="Label" parent="ShopUI"]
 offset_left = 359.0
@@ -382,6 +398,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ReferenceRect" type="ReferenceRect" parent="ShopUI"]
+visible = false
 offset_left = 815.0
 offset_top = 166.0
 offset_right = 1033.0
@@ -398,25 +415,13 @@ offset_bottom = 573.0
 theme_override_font_sizes/font_size = 50
 text = "Let's play"
 
-[node name="Icon" type="Sprite2D" parent="ShopUI"]
-position = Vector2(931, 253)
-scale = Vector2(0.757812, 0.757812)
-texture = ExtResource("9_vv2q7")
-
-[node name="BuyJetpackUpgrade" type="Button" parent="ShopUI"]
-offset_left = 873.0
-offset_top = 412.0
-offset_right = 987.0
-offset_bottom = 448.0
-text = "Buy upgrade "
-
 [connection signal="body_entered" from="UDeadMate/Area2D" to="UDeadMate" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="GapGround/FinishLine/Area2D" to="GapGround/FinishLine" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LandingZone/Bullseye" to="LandingZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="LandingZone/Double" to="LandingZone" method="_on_double_body_entered"]
 [connection signal="body_entered" from="LandingZone/Single" to="LandingZone" method="_on_single_body_entered"]
 [connection signal="pressed" from="Shop/Background/Button" to="ShopUI" method="_on_button_pressed"]
-[connection signal="pressed" from="ShopUI/ColorRect/JetpackBorder/BuyJetpackUpgrade" to="ShopUI/ColorRect/JetpackBorder" method="_on_buy_jetpack_upgrade_pressed"]
 [connection signal="pressed" from="ShopUI/ColorRect/ThrusterBorder/BuyThrustUpgrade" to="ShopUI/ColorRect/ThrusterBorder" method="_on_buy_thrust_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/XJump/BuyXJumpUpgrade" to="ShopUI/ColorRect/XJump" method="_on_buy_thrust_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/JetpackBorder/BuyJetpackUpgrade" to="ShopUI/ColorRect/JetpackBorder" method="_on_buy_thrust_upgrade_pressed"]
 [connection signal="pressed" from="ShopUI/Button" to="ShopUI" method="_on_button_pressed"]
-[connection signal="pressed" from="ShopUI/BuyJetpackUpgrade" to="ShopUI/ColorRect/JetpackBorder" method="_on_buy_jetpack_upgrade_pressed"]
