@@ -1,17 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=24 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
-[ext_resource type="Script" path="res://u_dead_mate.gd" id="2_kugpk"]
+[ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
+[ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m5rkr"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycip7"]
 size = Vector2(128, 2048)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycip7"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m5rkr"]
 size = Vector2(128, 2048)
 
 [sub_resource type="Gradient" id="Gradient_2ecsy"]
@@ -22,6 +23,8 @@ colors = PackedColorArray(0, 1, 0, 1)
 gradient = SubResource("Gradient_2ecsy")
 width = 16
 height = 1024
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v6ccp"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nc1c3"]
 
@@ -67,36 +70,53 @@ fill_to = Vector2(0.256881, 0)
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DistanceLabel" type="Label" parent="CanvasLayer"]
+offset_right = 32.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 64
+
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
 
-[node name="UDeadMate" type="Node2D" parent="."]
+[node name="DeathZone" type="Node2D" parent="."]
 position = Vector2(523, 2527)
 script = ExtResource("2_kugpk")
 
-[node name="Area2D" type="Area2D" parent="UDeadMate"]
+[node name="Area2D" type="Area2D" parent="DeathZone"]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UDeadMate/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone/Area2D"]
 shape = SubResource("WorldBoundaryShape2D_1te06")
 
-[node name="FixedGround" type="StaticBody2D" parent="."]
+[node name="FixedGround" type="Node2D" parent="."]
+script = ExtResource("4_r48j6")
+
+[node name="Ground" type="StaticBody2D" parent="FixedGround"]
 position = Vector2(-2929, 500)
 scale = Vector2(50, 1)
 collision_layer = 2
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="FixedGround"]
-position = Vector2(0, 960)
-texture = SubResource("PlaceholderTexture2D_m5rkr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FixedGround"]
+[node name="CollisionShape2D (Physics" type="CollisionShape2D" parent="FixedGround/Ground"]
 position = Vector2(0, 960)
 shape = SubResource("RectangleShape2D_ycip7")
 
+[node name="Sprite2D" type="Sprite2D" parent="FixedGround/Ground"]
+position = Vector2(0, 960)
+texture = SubResource("PlaceholderTexture2D_m5rkr")
+
 [node name="StartLine" type="Sprite2D" parent="FixedGround"]
-position = Vector2(63.84, -5184)
-scale = Vector2(0.02, 10)
+position = Vector2(263, -4684)
+scale = Vector2(1, 10)
 texture = SubResource("GradientTexture2D_qldn3")
+
+[node name="StartTrigger" type="Area2D" parent="FixedGround"]
+position = Vector2(271, 0)
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FixedGround/StartTrigger"]
+shape = SubResource("WorldBoundaryShape2D_v6ccp")
 
 [node name="GapGround" type="Node2D" parent="."]
 position = Vector2(6756, 500)
@@ -182,7 +202,8 @@ rotation = 1.5708
 scale = Vector2(100, 10000)
 texture = SubResource("GradientTexture2D_73a55")
 
-[connection signal="body_entered" from="UDeadMate/Area2D" to="UDeadMate" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="FixedGround/StartTrigger" to="FixedGround" method="_on_start_trigger_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Bullseye" to="GapGround/LandingZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Double" to="GapGround/LandingZone" method="_on_double_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Single" to="GapGround/LandingZone" method="_on_single_body_entered"]
