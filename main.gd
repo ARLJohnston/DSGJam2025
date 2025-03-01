@@ -15,6 +15,8 @@ var started: bool = false;
 var waiting_for_player_to_stop_after_ground_hit: bool = false;
 var waiting_for_post_win_timer: bool = false
 
+var music: AudioStream
+
 func _ready() -> void:
 	player_spawn = $Player/CharacterBody2D.position;
 	ground_spawn_x = $GapGround.position.x;
@@ -77,12 +79,14 @@ func _on_win() -> void:
 func _on_ground_touched() -> void:
 	$Player/CharacterBody2D.can_move = false;
 	waiting_for_player_to_stop_after_ground_hit = true;
+	Music.crossfade_to_grounded(music)
 
 func _on_start() -> void:
 	if started:
 		printerr("Start triggered after already started!")
 		return
-		
+
+	Music.crossfade_to_airborne(music)
 	print("You've started!")
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.WHITE;
