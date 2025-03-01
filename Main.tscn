@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
-[ext_resource type="Theme" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Theme" uid="uid://bghlolq41gla8" path="res://theme.tres" id="2_nv8g0"]
 [ext_resource type="Script" path="res://isk_plus_label.gd" id="3_4iuo4"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
