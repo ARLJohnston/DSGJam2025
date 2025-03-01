@@ -1,17 +1,34 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=20 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://u_dead_mate.gd" id="2_kugpk"]
-[ext_resource type="Script" path="res://finish_line.gd" id="4_0m5go"]
+[ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m5rkr"]
-size = Vector2(128, 2049)
+size = Vector2(128, 2048)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnde0"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ycip7"]
+size = Vector2(128, 2048)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nc1c3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xcen"]
+size = Vector2(189, 67)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whbr4"]
+size = Vector2(419, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5om6v"]
+size = Vector2(577, 302)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnk1x"]
+size = Vector2(128, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwww5"]
 size = Vector2(128, 2048)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tsuic"]
@@ -24,9 +41,7 @@ colors = PackedColorArray(1, 1, 0, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_s7cpj"]
 gradient = SubResource("Gradient_r2hlu")
 width = 16
-height = 1280
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_b80cj"]
+height = 1024
 
 [sub_resource type="Gradient" id="Gradient_843x5"]
 interpolation_mode = 2
@@ -35,17 +50,6 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_73a55"]
 gradient = SubResource("Gradient_843x5")
 fill_to = Vector2(0.256881, 0)
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nc1c3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xcen"]
-size = Vector2(189, 67)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_whbr4"]
-size = Vector2(419, 75)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5om6v"]
-size = Vector2(577, 302)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")
@@ -74,55 +78,24 @@ texture = SubResource("PlaceholderTexture2D_m5rkr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FixedGround"]
 position = Vector2(0, 960)
-shape = SubResource("RectangleShape2D_mnde0")
+shape = SubResource("RectangleShape2D_ycip7")
 
 [node name="GapGround" type="Node2D" parent="."]
-position = Vector2(995, 500)
+position = Vector2(6756, 500)
+script = ExtResource("4_nokrs")
 
-[node name="Ground" type="StaticBody2D" parent="GapGround"]
-scale = Vector2(10, 1)
-collision_layer = 2
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="GapGround/Ground"]
-position = Vector2(0, 960)
-texture = SubResource("PlaceholderTexture2D_tsuic")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/Ground"]
-position = Vector2(0, 960)
-shape = SubResource("RectangleShape2D_mnde0")
-
-[node name="FinishLine" type="Node2D" parent="GapGround"]
-position = Vector2(0, -702)
-script = ExtResource("4_0m5go")
-
-[node name="Sprite2D" type="Sprite2D" parent="GapGround/FinishLine"]
-texture = SubResource("GradientTexture2D_s7cpj")
-
-[node name="Area2D" type="Area2D" parent="GapGround/FinishLine"]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/FinishLine/Area2D"]
-rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_b80cj")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(7.27596e-12, 3685)
-rotation = 1.5708
-scale = Vector2(100, 10000)
-texture = SubResource("GradientTexture2D_73a55")
-
-[node name="LandingZone" type="Node2D" parent="."]
+[node name="LandingZone" type="Node2D" parent="GapGround"]
+position = Vector2(-6756, -500)
 script = ExtResource("5_gt764")
 
-[node name="Bullseye" type="Area2D" parent="LandingZone"]
+[node name="Bullseye" type="Area2D" parent="GapGround/LandingZone"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingZone/Bullseye"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/LandingZone/Bullseye"]
 material = SubResource("CanvasItemMaterial_nc1c3")
 position = Vector2(678.5, 414)
 shape = SubResource("RectangleShape2D_2xcen")
 
-[node name="ColorRect" type="ColorRect" parent="LandingZone/Bullseye/CollisionShape2D"]
+[node name="ColorRect" type="ColorRect" parent="GapGround/LandingZone/Bullseye/CollisionShape2D"]
 z_index = 3
 offset_left = -95.0
 offset_top = 22.0
@@ -130,13 +103,13 @@ offset_right = 94.0
 offset_bottom = 80.0
 color = Color(1, 0, 0, 1)
 
-[node name="Double" type="Area2D" parent="LandingZone"]
+[node name="Double" type="Area2D" parent="GapGround/LandingZone"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingZone/Double"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/LandingZone/Double"]
 position = Vector2(689, 452)
 shape = SubResource("RectangleShape2D_whbr4")
 
-[node name="ColorRect" type="ColorRect" parent="LandingZone/Double/CollisionShape2D"]
+[node name="ColorRect" type="ColorRect" parent="GapGround/LandingZone/Double/CollisionShape2D"]
 z_index = 2
 offset_left = -214.0
 offset_top = -15.0
@@ -144,13 +117,13 @@ offset_right = 210.0
 offset_bottom = 43.0
 color = Color(1, 1, 0.00392157, 1)
 
-[node name="Single" type="Area2D" parent="LandingZone"]
+[node name="Single" type="Area2D" parent="GapGround/LandingZone"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LandingZone/Single"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/LandingZone/Single"]
 position = Vector2(680, 580)
 shape = SubResource("RectangleShape2D_5om6v")
 
-[node name="ColorRect" type="ColorRect" parent="LandingZone/Single/CollisionShape2D"]
+[node name="ColorRect" type="ColorRect" parent="GapGround/LandingZone/Single/CollisionShape2D"]
 z_index = 1
 offset_left = -291.0
 offset_top = -143.0
@@ -158,8 +131,41 @@ offset_right = 285.0
 offset_bottom = -85.0
 color = Color(0, 1, 0, 1)
 
+[node name="Ground" type="StaticBody2D" parent="GapGround"]
+scale = Vector2(100, 1)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Area2D (Ground Touch)" type="Area2D" parent="GapGround/Ground"]
+position = Vector2(0, -75)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GapGround/Ground/Area2D (Ground Touch)"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xnk1x")
+
+[node name="CollisionShape2D (Physics)" type="CollisionShape2D" parent="GapGround/Ground"]
+position = Vector2(0, 960)
+shape = SubResource("RectangleShape2D_hwww5")
+
+[node name="Sprite2D" type="Sprite2D" parent="GapGround/Ground"]
+position = Vector2(0, 960)
+texture = SubResource("PlaceholderTexture2D_tsuic")
+
+[node name="FinishLine" type="Sprite2D" parent="GapGround"]
+position = Vector2(-6400, -10303)
+scale = Vector2(1, 10)
+texture = SubResource("GradientTexture2D_s7cpj")
+centered = false
+
+[node name="Fog" type="Sprite2D" parent="."]
+position = Vector2(7.27596e-12, 3685)
+rotation = 1.5708
+scale = Vector2(100, 10000)
+texture = SubResource("GradientTexture2D_73a55")
+
 [connection signal="body_entered" from="UDeadMate/Area2D" to="UDeadMate" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="GapGround/FinishLine/Area2D" to="GapGround/FinishLine" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="LandingZone/Bullseye" to="LandingZone" method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="LandingZone/Double" to="LandingZone" method="_on_double_body_entered"]
-[connection signal="body_entered" from="LandingZone/Single" to="LandingZone" method="_on_single_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Bullseye" to="GapGround/LandingZone" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Double" to="GapGround/LandingZone" method="_on_double_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Single" to="GapGround/LandingZone" method="_on_single_body_entered"]
+[connection signal="body_entered" from="GapGround/Ground/Area2D (Ground Touch)" to="GapGround" method="_on_area_2d_ground_touch_body_entered"]
