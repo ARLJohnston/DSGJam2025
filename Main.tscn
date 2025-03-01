@@ -1,9 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=26 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
-[ext_resource type="Theme" uid="uid://bghlolq41gla8" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Theme" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Script" path="res://isk_plus_label.gd" id="3_4iuo4"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
@@ -97,13 +98,25 @@ theme_override_colors/font_color = Color(1, 0.67451, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "§0 ISK"
 
+[node name="IskPlusLabel" type="Label" parent="CanvasLayer/IskLabel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 46.0
+offset_right = 128.0
+offset_bottom = 80.0
+theme = ExtResource("2_nv8g0")
+theme_override_colors/font_color = Color(0, 1, 0.431373, 1)
+theme_override_font_sizes/font_size = 24
+text = "+§100 ISK"
+script = ExtResource("3_4iuo4")
+
 [node name="DistanceLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
 offset_right = 150.0
-offset_bottom = 45.0
+offset_bottom = 67.0
 grow_horizontal = 2
 theme = ExtResource("2_nv8g0")
 theme_override_font_sizes/font_size = 48
