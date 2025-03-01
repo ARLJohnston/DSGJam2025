@@ -28,7 +28,11 @@ func _process(delta: float) -> void:
 	
 	if started:
 		var distance = $Player/CharacterBody2D.global_position.x - $FixedGround/StartTrigger.global_position.x
-		$CanvasLayer/DistanceLabel.text = "Distance: %f" % distance
+		distance = max(0, distance);
+		distance = distance / 100;
+		distance = round(distance);
+		
+		$CanvasLayer/DistanceLabel.text = "Distance: %dm" % distance
 		
 	# Player touched the ground and we're waiting for them to stop moving.
 	if waiting_for_player_to_stop_after_ground_hit and not waiting_for_post_win_timer:

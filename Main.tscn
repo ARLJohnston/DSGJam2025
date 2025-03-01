@@ -73,9 +73,12 @@ script = ExtResource("1_fcgpp")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DistanceLabel" type="Label" parent="CanvasLayer"]
-offset_right = 32.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 64
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 354.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 32
+text = "Distance: idk yet lol"
 
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
 
