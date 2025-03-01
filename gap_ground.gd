@@ -1,6 +1,6 @@
 extends Node2D
 
-signal win
+signal ground_touched
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,5 +12,5 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	win.emit()
+func _on_area_2d_ground_touch_body_entered(body: Node2D) -> void:
+	ground_touched.emit()
