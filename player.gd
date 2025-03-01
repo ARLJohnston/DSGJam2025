@@ -10,7 +10,13 @@ var gravity = 980.0
 var is_jumping = false
 
 func _ready() -> void:
-	original_scale = $DirectionArrow.scale
+	original_scale = $DirectionArrow.scale 
+	
+	
+func _reset() -> void: 
+	jump_charge = 0 
+	velocity = Vector2(0,0) 
+	is_jumping = false
 
 func _physics_process(delta: float) -> void:
 

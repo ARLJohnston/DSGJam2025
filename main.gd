@@ -34,5 +34,6 @@ func _on_die() -> void:
 	_reset_player_pos()
 
 func _reset_player_pos() -> void:
-	$Player/CharacterBody2D.position = player_spawn;
+	$Player/CharacterBody2D.position = player_spawn; 
+	$Player/CharacterBody2D._reset()
 	
