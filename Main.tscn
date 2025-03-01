@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=25 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
+[ext_resource type="Theme" uid="uid://bghlolq41gla8" path="res://theme.tres" id="2_nv8g0"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
@@ -81,9 +82,20 @@ offset_top = 64.0
 offset_right = 150.0
 offset_bottom = 109.0
 grow_horizontal = 2
+theme = ExtResource("2_nv8g0")
 theme_override_font_sizes/font_size = 24
 text = "(idk yet lol gap)"
 horizontal_alignment = 1
+
+[node name="CoinLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 77.0
+theme = ExtResource("2_nv8g0")
+theme_override_colors/font_color = Color(1, 0.67451, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "0 ISK"
 
 [node name="DistanceLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 5
@@ -93,11 +105,13 @@ offset_left = -150.0
 offset_right = 150.0
 offset_bottom = 45.0
 grow_horizontal = 2
+theme = ExtResource("2_nv8g0")
 theme_override_font_sizes/font_size = 48
 text = "yeet!"
 horizontal_alignment = 1
 
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
+position = Vector2(0, 366)
 
 [node name="DeathZone" type="Node2D" parent="."]
 position = Vector2(523, 2527)

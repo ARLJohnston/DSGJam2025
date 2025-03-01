@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+const BASE_MAX_ZOOM = 0.7;
+const BASE_MIN_ZOOM = 0.2;
+
 const SPEED = 800.0
 var jump_charge = 0
 const MAX_JUMP_CHARGE = -5000
@@ -25,6 +28,7 @@ func _reset() -> void:
 	jump_charge = 0
 	velocity = Vector2(0,0)
 	is_jumping = false
+	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -48,6 +52,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
+	var zoom = remap((1.0 - remap(velocity.length(), 0, 3000, 0, 1)), 0, 1, BASE_MIN_ZOOM, BASE_MAX_ZOOM);
+	zoom = clamp(lerp($Camera2D.zoom.x, zoom, delta), BASE_MIN_ZOOM, BASE_MAX_ZOOM);
+	$Camera2D.zoom = Vector2(zoom, zoom);
 	move_and_slide()
 
 func jump():

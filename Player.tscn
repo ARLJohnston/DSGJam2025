@@ -27,5 +27,8 @@ offset = Vector2(-7.96173, -15.7932)
 script = ExtResource("3_7kb67")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_right_margin = 0.0

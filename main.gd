@@ -16,7 +16,7 @@ var waiting_for_post_win_timer: bool = false
 
 func _ready() -> void:
 	player_spawn = $Player/CharacterBody2D.position;
-	ground_spawn_x = $GapGround.position.x;  
+	ground_spawn_x = $GapGround.position.x;
 	
 	start_line_spawn_y = $FixedGround/StartLine.global_position.y;
 	finish_line_spawn_y = $GapGround/FinishLine.global_position.y;
@@ -32,6 +32,12 @@ func _process(delta: float) -> void:
 	_pin_line_marker_y($GapGround/FinishLine, finish_line_spawn_y)
 	
 	if started:
+		# Keep ground underneath player incase they go miles away.
+		var player_x = $Player/CharacterBody2D.global_position.x;
+		var ground_follow_delta = $GapGround.global_position.x - player_x;
+		if ground_follow_delta <= 0:
+			$GapGround/Ground.global_position.x = player_x
+		
 		distance = $Player/CharacterBody2D.global_position.x - $FixedGround/StartTrigger.global_position.x
 		distance = max(0, distance);
 		var distance_text = round(distance / 100);
@@ -87,6 +93,7 @@ func _on_die() -> void:
 	_reset()
 
 func _reset() -> void:
+	$GapGround/Ground.position.x = 0;
 	$GapGround/LandingZone.has_scored = false
 	
 	gap = $GapGround/FinishLine.global_position.x - $FixedGround/StartLine.global_position.x
