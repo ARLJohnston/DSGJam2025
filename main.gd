@@ -26,7 +26,9 @@ func _ready() -> void:
 
 	$FixedGround.connect("start", _on_start)
 	$GapGround.connect("ground_touched", _on_ground_touched)
-	$DeathZone.connect("die", _on_die)
+	$DeathZone.connect("die", _on_die) 
+	
+	$ShopUI/ColorRect/MaxJumpPower.isk_updated.connect(_on_isk_updated)
 	
 	_reset()
 
@@ -109,7 +111,8 @@ func _reset() -> void:
 	gap = $GapGround/FinishLine.global_position.x - $FixedGround/StartLine.global_position.x
 	$CanvasLayer/LevelLabel.text = "(%dm gap)" % round(gap / 100);
 
-	$CanvasLayer/IskLabel.text = "§%d ISK" % isk;
+	$CanvasLayer/IskLabel.text = "§%d ISK" % isk; 
+	$ShopUI/ColorRect/IskLabel.text = "§%d ISK" % isk; 
 	
 	$Player/CharacterBody2D.position = player_spawn; 
 	$Player/CharacterBody2D._reset()
@@ -138,3 +141,9 @@ func _pin_line_marker_y(line: Sprite2D, spawn_y: float):
 	else:
 		line.global_position.y = spawn_y;
 	
+ 
+func _on_isk_updated(amount):
+	isk = amount  
+	$CanvasLayer/IskLabel.text = "§%d ISK" % isk; 
+	$ShopUI/ColorRect/IskLabel.text = "§%d ISK" % isk; 
+	print("isk updated")

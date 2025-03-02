@@ -499,6 +499,7 @@ theme_override_font_sizes/font_size = 50
 text = "Let's Play !"
 
 [node name="IskLabel" type="Label" parent="ShopUI/ColorRect"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 310.0
