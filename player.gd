@@ -59,7 +59,7 @@ func _reset() -> void:
 	is_jumping = false
 	can_move = true; 
 	x_jump_used = x_jump_upgrade
-	
+	$PowerLabel.visible = false;
 	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
 
 func _physics_process(delta: float) -> void:
@@ -89,6 +89,10 @@ func _physics_process(delta: float) -> void:
 				stretch_ratio = abs(jump_charge / max_jump_charge)
 				$DirectionArrow.apply_scale(Vector2(1, stretch_ratio))
 				$DirectionArrow.modulate = gradient.sample(jump_charge / max_jump_charge)
+				
+				$PowerLabel.visible = true;
+				var power_text = stretch_ratio * 100;
+				$PowerLabel.text = "%d%%" % power_text; 
 			elif max_jump_charge == 0:
 				jump_charge -= jump_growth * delta
 				$DirectionArrow.visible = true
@@ -97,8 +101,13 @@ func _physics_process(delta: float) -> void:
 				$DirectionArrow.apply_scale(Vector2(1, stretch_ratio))
 				$DirectionArrow.modulate = gradient.sample(jump_charge / max_jump_charge)
 				
+				$PowerLabel.visible = true;
+				var power_text = stretch_ratio * 100;
+				$PowerLabel.text = "%d%%" % power_text; 
+				
 
 		if Input.is_action_just_released("ui_accept") and is_on_floor():
+			$PowerLabel.visible = false;
 			jump() 
 	 
 	if (not is_on_floor() && Input.is_action_just_pressed("ui_accept")): 
