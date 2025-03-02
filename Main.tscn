@@ -103,31 +103,34 @@ shader = ExtResource("12_3jp6m")
 script = ExtResource("1_fcgpp")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
-texture_repeat = 2
-scroll_scale = Vector2(0.7, 0.7)
+scroll_scale = Vector2(0.5, 0.5)
+scroll_offset = Vector2(1000, 1000)
+repeat_size = Vector2(2000, 2000)
+autoscroll = Vector2(-100, 0)
+repeat_times = 3
 
 [node name="Stars" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(68, -18)
+scale = Vector2(2, 2)
 texture = ExtResource("2_pibt5")
 
 [node name="Stars2" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(68, -18)
+scale = Vector2(2, 2)
 texture = ExtResource("3_v40wt")
 
 [node name="Stars3" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(68, -18)
+scale = Vector2(2, 2)
 texture = ExtResource("4_xkqpf")
 
 [node name="Stars4" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(68, -18)
+scale = Vector2(2, 2)
 texture = ExtResource("5_6e0wi")
 
 [node name="Stars5" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(68, -18)
+scale = Vector2(2, 2)
 texture = ExtResource("6_ye57w")
 
 [node name="Star4" type="Sprite2D" parent="Parallax2D"]
-position = Vector2(63, -20)
+scale = Vector2(2, 2)
 texture = ExtResource("7_87vog")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
