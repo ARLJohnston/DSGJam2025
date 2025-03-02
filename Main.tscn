@@ -563,8 +563,11 @@ text = "Buys tuff"
 
 [connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="FixedGround/StartTrigger" to="FixedGround" method="_on_start_trigger_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Bullseye" to="." method="_on_bullseye_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Bullseye" to="GapGround/LandingZone" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Double" to="." method="_on_double_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Double" to="GapGround/LandingZone" method="_on_double_body_entered"]
+[connection signal="body_entered" from="GapGround/LandingZone/Single" to="." method="_on_single_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Single" to="GapGround/LandingZone" method="_on_single_body_entered"]
 [connection signal="body_entered" from="GapGround/Ground/Area2D (Ground Touch)" to="GapGround" method="_on_area_2d_ground_touch_body_entered"]
 [connection signal="pressed" from="ShopUI/ColorRect/Jetpack/BuyJetpackUpgrade" to="ShopUI/ColorRect/Jetpack" method="_on_buy_jetpack_upgrade_pressed"]
