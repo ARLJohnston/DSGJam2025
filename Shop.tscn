@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://shop_ui.gd" id="1_uhr2o"]
 [ext_resource type="Script" path="res://thruster.gd" id="2_bwmg4"]
-[ext_resource type="Texture2D" uid="uid://1s0hmr78bndd" path="res://Thrusters.png" id="3_fjnml"]
+[ext_resource type="Texture2D" uid="uid://1s0hmr78bndd" path="res://assets/Thrusters.png" id="3_fjnml"]
 [ext_resource type="Shader" path="res://glistening.gdshader" id="4_mved5"]
 [ext_resource type="Texture2D" uid="uid://b3mrduaxg6ce2" path="res://assets/star_gradient.png" id="5_hoaq8"]
 [ext_resource type="Script" path="res://x_jump.gd" id="6_ldahk"]
-[ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://Doubledash.png" id="7_lrkch"]
+[ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://assets/Doubledash.png" id="7_lrkch"]
 [ext_resource type="Script" path="res://jetpack.gd" id="8_lnvuh"]
 [ext_resource type="Texture2D" uid="uid://b72b14pexxqs3" path="res://assets/Jetpack.png" id="9_vwbba"]
 
