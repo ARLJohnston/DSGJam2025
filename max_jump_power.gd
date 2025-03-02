@@ -37,11 +37,8 @@ func _on_buy_max_jump_power_upgrade_pressed() -> void:
 	var current_isk = get_parent().get_parent().get_parent().isk  
 	var upgrade_cost = cost[upgrade_level] 
 	
-	print(upgrade_level)
-	print(upgrade_cost)
-	
-	if (true): 
-				
+
+	if (current_isk >= upgrade_cost): 
 		if (upgrade_level < MAX_LEVEL):
 			upgrade_level += 1  
 			current_isk -= upgrade_cost 

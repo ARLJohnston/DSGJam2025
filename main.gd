@@ -28,7 +28,11 @@ func _ready() -> void:
 	$GapGround.connect("ground_touched", _on_ground_touched)
 	$DeathZone.connect("die", _on_die) 
 	
-	$ShopUI/ColorRect/MaxJumpPower.isk_updated.connect(_on_isk_updated)
+	$ShopUI/ColorRect/MaxJumpPower.isk_updated.connect(_on_isk_updated) 
+	$ShopUI/ColorRect/XJump.isk_updated.connect(_on_isk_updated) 
+	$ShopUI/ColorRect/Thrusters.isk_updated.connect(_on_isk_updated) 
+	$ShopUI/ColorRect/Jetpack.isk_updated.connect(_on_isk_updated)
+	
 	
 	_reset()
 
