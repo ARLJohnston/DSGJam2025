@@ -1,10 +1,8 @@
 extends CanvasLayer
-
-
+ 
 func _ready() -> void:
-	self.visible = false
-
-
+	self.visible = false 
+	
 func _on_open_shop_ui_pressed() -> void:
 	self.visible = !self.visible
 

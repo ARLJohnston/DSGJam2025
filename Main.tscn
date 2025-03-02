@@ -438,6 +438,7 @@ scale = Vector2(1.3125, 1.375)
 texture = ExtResource("12_biktv")
 
 [node name="MaxJumpPower" type="ReferenceRect" parent="ShopUI/ColorRect"]
+layout_mode = 0
 offset_left = 881.0
 offset_top = 195.0
 offset_right = 1055.0
@@ -496,6 +497,16 @@ offset_right = 819.0
 offset_bottom = 629.0
 theme_override_font_sizes/font_size = 50
 text = "Let's Play !"
+
+[node name="IskLabel" type="Label" parent="ShopUI/ColorRect"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 77.0
+theme = ExtResource("2_nv8g0")
+theme_override_colors/font_color = Color(1, 0.67451, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "§0 ISK"
 
 [node name="Label" type="Label" parent="ShopUI"]
 offset_left = 345.0
