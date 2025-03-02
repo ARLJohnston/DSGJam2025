@@ -1,5 +1,7 @@
 extends ReferenceRect
- 
+
+@onready var upgrade = $"../upgrade"
+
 const COST_MULTIPLIER = 1.5
 
 var current_multiplier : float = 1.0
@@ -26,6 +28,7 @@ func _on_buy_max_jump_power_upgrade_pressed() -> void:
 	
 
 	if (current_isk >= cost): 
+		upgrade.play()
 		current_multiplier *= 1.1
 		print(current_multiplier)
 		$JumpMultiplier.text = "Current mult: %.2f" % current_multiplier
