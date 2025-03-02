@@ -20,21 +20,32 @@ var gradient_data = {
 	0.0 : Color.GREEN,
 	1.0 : Color.RED,
 }
-var gradient = Gradient.new()
+var gradient = Gradient.new() 
+
+var x_jump_upgrade = 0 
+var x_jump_used = 0 
 
 
 func _ready() -> void:
 	original_scale = $DirectionArrow.scale
 	gradient.offsets = gradient_data.keys()
-	gradient.colors = gradient_data.values()
-
+	gradient.colors = gradient_data.values() 
+	
+	SignalManager.x_jump_upgraded.connect(_on_x_jump_upgraded)
+  
+func _on_x_jump_upgraded(level):  
+	print("jump upgraded")
+	x_jump_upgrade = level 
+	x_jump_used = x_jump_upgrade
+	
 func _reset() -> void:
 	velocity = Vector2(0,0)
 		
 	jump_charge = 0
 	jump_growth = -0.25 * max_jump_charge
 	is_jumping = false
-	can_move = true;
+	can_move = true; 
+	x_jump_used = x_jump_upgrade
 	
 	$Camera2D.zoom = Vector2(BASE_MAX_ZOOM, BASE_MAX_ZOOM);
 
@@ -61,14 +72,19 @@ func _physics_process(delta: float) -> void:
 				
 
 		if Input.is_action_just_released("ui_accept") and is_on_floor():
-			jump()
+			jump() 
+	 
+	if (not is_on_floor() && Input.is_action_just_pressed("ui_accept")): 
+		x_jump_used -= 1 
+		if (x_jump_used >= 0): 
+			last_jump()
 
 	if (is_on_floor() && !Input.is_action_pressed("ui_accept")):
 		var move_direction := Input.get_axis("ui_left", "ui_right")
 		if can_move and move_direction:
 			velocity.x = move_direction * SPEED
 		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.x = move_toward(velocity.x, 0, SPEED) 
 
 	var zoom = remap((1.0 - remap(velocity.length(), 0, 3000, 0, 1)), 0, 1, BASE_MIN_ZOOM, BASE_MAX_ZOOM);
 	zoom = clamp(lerp($Camera2D.zoom.x, zoom, delta), BASE_MIN_ZOOM, BASE_MAX_ZOOM);
@@ -88,3 +104,10 @@ func jump():
 
 	await get_tree().create_timer(0.5).timeout
 	is_jumping = false
+ 
+func last_jump():  
+	is_jumping = true
+	var jump_charge = 1000
+	var direction = deg_to_rad(45)
+	var leap_vector = Vector2.UP.rotated(direction) * jump_charge
+	velocity += leap_vector

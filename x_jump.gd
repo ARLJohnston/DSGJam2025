@@ -7,7 +7,7 @@ var cost = [30,90,270]
 var current_isk : int
 
 enum MetalColor { BRONZE = 1, SILVER = 2, GOLD = 3 }
-signal isk_updated
+signal isk_updated 
 
 var metal_colors = {
 	MetalColor.BRONZE: Color("#CD7F32"), 
@@ -42,7 +42,9 @@ func _on_buy_x_jump_upgrade_pressed() -> void:
 	if (current_isk >= upgrade_cost): 
 				
 		if (upgrade_level < MAX_LEVEL):
-			upgrade_level += 1  
+			upgrade_level += 1    
+			SignalManager.x_jump_upgraded.emit(upgrade_level)
+			
 			current_isk -= upgrade_cost 
 			emit_signal("isk_updated", current_isk) 
 			self.border_color = get_metal_color(upgrade_level)    
