@@ -1,6 +1,6 @@
 extends ReferenceRect
  
-
+@onready var upgrade = $"../upgrade"
 var upgrade_level : int = 0
 const MAX_LEVEL = 3 
 var cost = [100,900,3000]  
@@ -45,6 +45,7 @@ func _on_buy_thrust_upgrade_pressed() -> void:
 			upgrade_level += 1
 			$"../../../Player/CharacterBody2D".max_thruster_fuel = upgrade_level
 			$"../../../Player/CharacterBody2D".thruster_fuel = upgrade_level
+			upgrade.play(0.0)
 			current_isk -= upgrade_cost 
 			emit_signal("isk_updated", current_isk) 
 			self.border_color = get_metal_color(upgrade_level)    

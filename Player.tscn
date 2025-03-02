@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4qgv5qa7nm5j"]
+[gd_scene load_steps=6 format=3 uid="uid://c4qgv5qa7nm5j"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0cmq5"]
-[ext_resource type="Texture2D" uid="uid://bl755cmogpf3b" path="res://icon.svg" id="1_mgnih"]
+[ext_resource type="Texture2D" uid="uid://b4w8uag4p8n84" path="res://assets/player.png" id="2_3lmd3"]
 [ext_resource type="Script" path="res://arrow.gd" id="3_7kb67"]
 [ext_resource type="Texture2D" uid="uid://bk622ywju1aeb" path="res://assets/arrow1.png" id="3_giiik"]
+[ext_resource type="AudioStream" uid="uid://b8kl60ujxk2ii" path="res://assets/sfx/jump.wav" id="5_5q40h"]
 
 [node name="Player" type="Node2D"]
 
@@ -12,7 +13,7 @@ collision_mask = 2
 script = ExtResource("1_0cmq5")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("1_mgnih")
+texture = ExtResource("2_3lmd3")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D"]
 polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
@@ -32,3 +33,6 @@ position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_right_margin = 0.0
+
+[node name="Jump" type="AudioStreamPlayer" parent="CharacterBody2D"]
+stream = ExtResource("5_5q40h")
