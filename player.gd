@@ -81,9 +81,9 @@ func _physics_process(delta: float) -> void:
 		if (x_jump_used >= 0): 
 			last_jump()
 
-	if (is_on_floor() && !Input.is_action_pressed("ui_accept")):
+	if (is_on_floor()):
 		var move_direction := Input.get_axis("ui_left", "ui_right")
-		if can_move and move_direction:
+		if can_move and move_direction and !($DirectionArrow.visible):
 			velocity.x = move_direction * SPEED
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED) 
