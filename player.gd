@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_released("ui_accept") and is_on_floor():
 			jump()
 
-	if (is_on_floor()):
+	if (is_on_floor() && !Input.is_action_pressed("ui_accept")):
 		var move_direction := Input.get_axis("ui_left", "ui_right")
 		if can_move and move_direction:
 			velocity.x = move_direction * SPEED
