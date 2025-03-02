@@ -3,7 +3,7 @@ extends ReferenceRect
 
 var upgrade_level : int = 0
 const MAX_LEVEL = 3 
-var cost = [30,90,270]  
+var cost = [150,1300,5000]  
 var current_isk : int
 
 enum MetalColor { BRONZE = 1, SILVER = 2, GOLD = 3 }
@@ -38,18 +38,24 @@ func _on_buy_jetpack_upgrade_pressed() -> void:
 	
 
 	if (current_isk >= upgrade_cost): 
+		$"../../../CanvasLayer/JetpackFuel".value = 1
 		if (upgrade_level < MAX_LEVEL):
-			upgrade_level += 1  
+			upgrade_level += 1
+			$"../../../Player/CharacterBody2D".max_jetpack_fuel = upgrade_level
+			$"../../../Player/CharacterBody2D".jetpack_fuel = upgrade_level
 			current_isk -= upgrade_cost 
 			emit_signal("isk_updated", current_isk) 
 			self.border_color = get_metal_color(upgrade_level)    
 			match upgrade_level:
 				1:
 					$JetpackUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
+					$"../../../Player/CharacterBody2D".jetpack_power = 20
 				2:
 					$JetpackUpgradeLevelStar2.modulate = get_metal_color(MetalColor.SILVER) 
+					$"../../../Player/CharacterBody2D".jetpack_power = 25
 				3:
 					$JetpackUpgradeLevelStar3.modulate = get_metal_color(MetalColor.GOLD) 
+					$"../../../Player/CharacterBody2D".jetpack_power = 30
 				_:
 					print("Invalid level")  
 					

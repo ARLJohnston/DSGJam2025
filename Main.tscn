@@ -194,6 +194,16 @@ theme_override_font_sizes/font_size = 48
 text = "yeet!"
 horizontal_alignment = 1
 
+[node name="JetpackFuel" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 951.0
+offset_top = 71.0
+offset_right = 1113.0
+offset_bottom = 98.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_vujh7")
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
 [node name="ThrusterFuel" type="ProgressBar" parent="CanvasLayer"]
 offset_left = 952.0
 offset_top = 34.0
@@ -202,7 +212,6 @@ offset_bottom = 61.0
 theme_override_styles/fill = SubResource("StyleBoxTexture_vujh7")
 max_value = 1.0
 step = 0.001
-value = 0.5
 show_percentage = false
 
 [node name="Player" parent="." instance=ExtResource("1_uw5wn")]
