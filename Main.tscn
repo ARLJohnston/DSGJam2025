@@ -1,12 +1,12 @@
-[gd_scene load_steps=40 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=46 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
-[ext_resource type="Texture2D" uid="uid://m6ik6xvni4pf" path="res://assets/Stars.png" id="2_pibt5"]
-[ext_resource type="Texture2D" uid="uid://cue7y225mjr0w" path="res://assets/Stars_2.png" id="3_v40wt"]
 [ext_resource type="Theme" uid="uid://blds05q2wf618" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Texture2D" uid="uid://m6ik6xvni4pf" path="res://assets/Stars.png" id="2_pibt5"]
 [ext_resource type="Script" path="res://isk_plus_label.gd" id="3_4iuo4"]
+[ext_resource type="Texture2D" uid="uid://cue7y225mjr0w" path="res://assets/Stars_2.png" id="3_v40wt"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
 [ext_resource type="Texture2D" uid="uid://dh8r1nd3evs3d" path="res://assets/Stars_3.png" id="4_xkqpf"]
@@ -25,7 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://assets/Doubledash.png" id="17_7ev66"]
 [ext_resource type="Script" path="res://max_jump_power.gd" id="18_hewb5"]
 [ext_resource type="Texture2D" uid="uid://bk622ywju1aeb" path="res://assets/arrow1.png" id="19_4ff8g"]
-
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
@@ -534,6 +533,7 @@ theme_override_font_sizes/font_size = 50
 text = "Let's Play !"
 
 [node name="IskLabel" type="Label" parent="ShopUI/ColorRect"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 310.0
