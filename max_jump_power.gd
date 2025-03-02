@@ -15,25 +15,26 @@ var metal_colors = {
 } 
 
 func _ready() -> void:
-	$BuyXJumpUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
+	$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
 
 
 func get_metal_color(value: int) -> Color:
 	return metal_colors.get(value, Color(1, 1, 1)) 
 
-func _on_buy_thrust_upgrade_pressed() -> void: 
+
+func _on_buy_max_jump_power_upgrade_pressed() -> void:
 	if (upgrade_level != MAX_LEVEL):
-			$BuyXJumpUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
+			$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
 			
 	if (upgrade_level < MAX_LEVEL):
 		upgrade_level += 1 
 		self.border_color = get_metal_color(upgrade_level)    
 		match upgrade_level:
 			1:
-				$XJumpUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
+				$MaxJumpPowerUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
 			2:
-				$XJumpUpgradeLevelStar2.modulate = get_metal_color(MetalColor.SILVER) 
+				$MaxJumpPowerUpgradeLevelStar2.modulate = get_metal_color(MetalColor.SILVER) 
 			3:
-				$XJumpUpgradeLevelStar3.modulate = get_metal_color(MetalColor.GOLD) 
+				$MaxJumpPowerUpgradeLevelStar3.modulate = get_metal_color(MetalColor.GOLD) 
 			_:
 				print("Invalid level")

@@ -23,7 +23,10 @@ func _ready() -> void:
 func get_metal_color(value: int) -> Color:
 	return metal_colors.get(value, Color(1, 1, 1)) 
 
-func _on_buy_thrust_upgrade_pressed() -> void: 
+
+
+
+func _on_buy_jetpack_upgrade_pressed() -> void:
 	if (upgrade_level != MAX_LEVEL):
 			$BuyJetpackUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
 			

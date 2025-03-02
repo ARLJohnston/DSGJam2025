@@ -1,7 +1,7 @@
 extends ReferenceRect
  
 
-var upgrade_level : int   
+var upgrade_level : int = 0
 const MAX_LEVEL = 3 
 var cost = [2000,4000,6000]
 
@@ -16,29 +16,27 @@ var metal_colors = {
 
 func _ready() -> void:
 	$BuyThrustUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
-	$ThrustersUpgradeLevelStar1.material.set_shader_parameter("shine_enabled", false)   
-	$ThrustersUpgradeLevelStar2.material.set_shader_parameter("shine_enabled", false) 
-	$ThrustersUpgradeLevelStar3.material.set_shader_parameter("shine_enabled", false)
 
 func get_metal_color(value: int) -> Color:
 	return metal_colors.get(value, Color(1, 1, 1)) 
 
-func _on_buy_thrust_upgrade_pressed() -> void: 
-	if (upgrade_level != MAX_LEVEL):
-			$BuyThrustUpgrade.text = "Buy upgrade " + str(cost[upgrade_level]) 
+func _on_buy_thrust_upgrade_pressed() -> void: 			
+	if (upgrade_level < MAX_LEVEL):  
+		 
 			
-	if (upgrade_level < MAX_LEVEL):
-		upgrade_level += 1 
+		upgrade_level += 1  
+		if (upgrade_level != MAX_LEVEL):
+			$BuyThrustUpgrade.text = "Buy upgrade " + str(cost[upgrade_level])   
+		else: 
+			$BuyThrustUpgrade.text = "MAXXED OUT" 
+			   
 		self.border_color = get_metal_color(upgrade_level)    
 		match upgrade_level:
 			1:
 				$ThrustersUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
-				$ThrustersUpgradeLevelStar1.material.set_shader_parameter("shine_enabled", true) 
 			2:
 				$ThrustersUpgradeLevelStar2.modulate = get_metal_color(MetalColor.SILVER) 
-				$ThrustersUpgradeLevelStar2.material.set_shader_parameter("shine_enabled", true)
 			3:
 				$ThrustersUpgradeLevelStar3.modulate = get_metal_color(MetalColor.GOLD) 
-				$ThrustersUpgradeLevelStar3.material.set_shader_parameter("shine_enabled", true)
 			_:
 				print("Invalid level")

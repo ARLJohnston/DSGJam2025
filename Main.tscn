@@ -1,13 +1,24 @@
-[gd_scene load_steps=26 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=40 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
-[ext_resource type="Theme" uid="uid://bghlolq41gla8" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Theme" uid="uid://blds05q2wf618" path="res://theme.tres" id="2_nv8g0"]
 [ext_resource type="Script" path="res://isk_plus_label.gd" id="3_4iuo4"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
+[ext_resource type="Script" path="res://shop_ui.gd" id="9_vjbc7"]
+[ext_resource type="Script" path="res://jetpack.gd" id="10_hpg0v"]
+[ext_resource type="Texture2D" uid="uid://b72b14pexxqs3" path="res://assets/Jetpack.png" id="10_lwx5p"]
+[ext_resource type="Shader" path="res://glistening.gdshader" id="12_3jp6m"]
+[ext_resource type="Texture2D" uid="uid://b3mrduaxg6ce2" path="res://assets/star_gradient.png" id="12_biktv"]
+[ext_resource type="Script" path="res://thruster.gd" id="14_yhcoj"]
+[ext_resource type="Texture2D" uid="uid://1s0hmr78bndd" path="res://assets/Thrusters.png" id="15_doaa4"]
+[ext_resource type="Script" path="res://x_jump.gd" id="16_d6di1"]
+[ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://assets/Doubledash.png" id="17_7ev66"]
+[ext_resource type="Script" path="res://max_jump_power.gd" id="18_hewb5"]
+[ext_resource type="Texture2D" uid="uid://bk622ywju1aeb" path="res://assets/arrow1.png" id="19_4ff8g"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
@@ -68,6 +79,15 @@ colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_73a55"]
 gradient = SubResource("Gradient_843x5")
 fill_to = Vector2(0.256881, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6jua"]
+shader = ExtResource("12_3jp6m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asany"]
+shader = ExtResource("12_3jp6m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3tlf"]
+shader = ExtResource("12_3jp6m")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")
@@ -249,9 +269,261 @@ rotation = 1.5708
 scale = Vector2(100, 10000)
 texture = SubResource("GradientTexture2D_73a55")
 
+[node name="ShopUI" type="CanvasLayer" parent="."]
+script = ExtResource("9_vjbc7")
+
+[node name="ColorRect" type="ColorRect" parent="ShopUI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.313726, 0.313726, 0.313726, 1)
+
+[node name="Jetpack" type="ReferenceRect" parent="ShopUI/ColorRect"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 195.0
+offset_right = 259.0
+offset_bottom = 347.0
+border_color = Color(1, 0.941176, 0.956863, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("10_hpg0v")
+
+[node name="JetpackLabel" type="Label" parent="ShopUI/ColorRect/Jetpack"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 82.0
+offset_right = 115.0
+offset_bottom = 105.0
+text = "Jetpack"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JetpackIcon" type="Sprite2D" parent="ShopUI/ColorRect/Jetpack"]
+position = Vector2(87, 48)
+scale = Vector2(4, 3.28125)
+texture = ExtResource("10_lwx5p")
+
+[node name="JetpackUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/Jetpack"]
+material = SubResource("ShaderMaterial_a6jua")
+position = Vector2(37, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="JetpackUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/Jetpack"]
+material = SubResource("ShaderMaterial_asany")
+position = Vector2(86, 129)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="BuyJetpackUpgrade" type="Button" parent="ShopUI/ColorRect/Jetpack"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 162.0
+offset_right = 139.0
+offset_bottom = 195.0
+text = "Buy Upgrade"
+
+[node name="JetpackUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/Jetpack"]
+material = SubResource("ShaderMaterial_c3tlf")
+position = Vector2(138, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="Thrusters" type="ReferenceRect" parent="ShopUI/ColorRect"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 195.0
+offset_right = 526.0
+offset_bottom = 347.0
+border_color = Color(1, 0.941176, 0.956863, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("14_yhcoj")
+
+[node name="ThrustersLabel" type="Label" parent="ShopUI/ColorRect/Thrusters"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 82.0
+offset_right = 115.0
+offset_bottom = 105.0
+text = "Thusters
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ThrustersIcon" type="Sprite2D" parent="ShopUI/ColorRect/Thrusters"]
+position = Vector2(87, 48)
+scale = Vector2(4, 3.28125)
+texture = ExtResource("15_doaa4")
+
+[node name="ThrustersUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/Thrusters"]
+material = SubResource("ShaderMaterial_a6jua")
+position = Vector2(37, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="ThrustersUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/Thrusters"]
+material = SubResource("ShaderMaterial_asany")
+position = Vector2(86, 129)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="BuyThrustUpgrade" type="Button" parent="ShopUI/ColorRect/Thrusters"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 162.0
+offset_right = 139.0
+offset_bottom = 195.0
+text = "Buy Upgrade"
+
+[node name="ThrustersUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/Thrusters"]
+material = SubResource("ShaderMaterial_c3tlf")
+position = Vector2(138, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="XJump" type="ReferenceRect" parent="ShopUI/ColorRect"]
+layout_mode = 0
+offset_left = 619.0
+offset_top = 195.0
+offset_right = 793.0
+offset_bottom = 347.0
+border_color = Color(1, 0.941176, 0.956863, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("16_d6di1")
+
+[node name="XJumpLabel" type="Label" parent="ShopUI/ColorRect/XJump"]
+layout_mode = 0
+offset_left = 58.0
+offset_top = 82.0
+offset_right = 115.0
+offset_bottom = 105.0
+text = "X Jump"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="XJumpIcon" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+position = Vector2(87, 48)
+scale = Vector2(4, 3.28125)
+texture = ExtResource("17_7ev66")
+
+[node name="XJumpUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_a6jua")
+position = Vector2(37, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="XJumpUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_asany")
+position = Vector2(86, 129)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="BuyXJumpUpgrade" type="Button" parent="ShopUI/ColorRect/XJump"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 162.0
+offset_right = 139.0
+offset_bottom = 195.0
+text = "Buy Upgrade"
+
+[node name="XJumpUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/XJump"]
+material = SubResource("ShaderMaterial_c3tlf")
+position = Vector2(138, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="MaxJumpPower" type="ReferenceRect" parent="ShopUI/ColorRect"]
+offset_left = 881.0
+offset_top = 195.0
+offset_right = 1055.0
+offset_bottom = 347.0
+border_color = Color(1, 0.941176, 0.956863, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("18_hewb5")
+
+[node name="MaxJumpPower" type="Label" parent="ShopUI/ColorRect/MaxJumpPower"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 87.0
+offset_right = 179.0
+offset_bottom = 110.0
+text = "Max Jump Power"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MaxJumpPowerIcon" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
+position = Vector2(87, 48)
+scale = Vector2(4, 3.28125)
+texture = ExtResource("19_4ff8g")
+
+[node name="MaxJumpPowerUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
+material = SubResource("ShaderMaterial_a6jua")
+position = Vector2(37, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="MaxJumpPowerUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
+material = SubResource("ShaderMaterial_asany")
+position = Vector2(86, 129)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="BuyMaxJumpPowerUpgrade" type="Button" parent="ShopUI/ColorRect/MaxJumpPower"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 162.0
+offset_right = 139.0
+offset_bottom = 195.0
+text = "Buy Upgrade"
+
+[node name="MaxJumpPowerUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
+material = SubResource("ShaderMaterial_c3tlf")
+position = Vector2(138, 130)
+scale = Vector2(1.3125, 1.375)
+texture = ExtResource("12_biktv")
+
+[node name="LetsPlayButton" type="Button" parent="ShopUI/ColorRect"]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 433.0
+offset_right = 819.0
+offset_bottom = 629.0
+theme_override_font_sizes/font_size = 50
+text = "Let's Play !"
+
+[node name="Label" type="Label" parent="ShopUI"]
+offset_left = 345.0
+offset_top = 31.0
+offset_right = 778.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 100
+text = "Buys tuff"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OpenShopUI" type="Button" parent="."]
+offset_left = -559.0
+offset_top = 477.0
+offset_right = -528.0
+offset_bottom = 502.0
+theme_override_font_sizes/font_size = 50
+text = "Buys tuff"
+
 [connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="FixedGround/StartTrigger" to="FixedGround" method="_on_start_trigger_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Bullseye" to="GapGround/LandingZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Double" to="GapGround/LandingZone" method="_on_double_body_entered"]
 [connection signal="body_entered" from="GapGround/LandingZone/Single" to="GapGround/LandingZone" method="_on_single_body_entered"]
 [connection signal="body_entered" from="GapGround/Ground/Area2D (Ground Touch)" to="GapGround" method="_on_area_2d_ground_touch_body_entered"]
+[connection signal="pressed" from="ShopUI/ColorRect/Jetpack/BuyJetpackUpgrade" to="ShopUI/ColorRect/Jetpack" method="_on_buy_jetpack_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/Thrusters/BuyThrustUpgrade" to="ShopUI/ColorRect/Thrusters" method="_on_buy_thrust_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/XJump/BuyXJumpUpgrade" to="ShopUI/ColorRect/XJump" method="_on_buy_thrust_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/MaxJumpPower/BuyMaxJumpPowerUpgrade" to="ShopUI/ColorRect/MaxJumpPower" method="_on_buy_max_jump_power_upgrade_pressed"]
+[connection signal="pressed" from="ShopUI/ColorRect/LetsPlayButton" to="ShopUI" method="_on_lets_play_button_pressed"]
+[connection signal="pressed" from="OpenShopUI" to="ShopUI" method="_on_open_shop_ui_pressed"]
