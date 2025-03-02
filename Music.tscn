@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cylmtwfghpbtr"]
+
+[ext_resource type="Script" path="res://music.gd" id="1_0s5k7"]
+[ext_resource type="AudioStream" uid="uid://bce8mx6v8osse" path="res://assets/music/stopped.ogg" id="2_3wiam"]
+[ext_resource type="AudioStream" uid="uid://ie441irmhhqc" path="res://assets/music/started.ogg" id="3_q7f05"]
+
+[sub_resource type="AudioStreamSynchronized" id="AudioStreamSynchronized_dpe0j"]
+stream_count = 2
+stream_0/stream = ExtResource("3_q7f05")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("2_3wiam")
+stream_1/volume = 0.0
+
+[node name="Node" type="Node"]
+script = ExtResource("1_0s5k7")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamSynchronized_dpe0j")
+autoplay = true

@@ -15,6 +15,10 @@ run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+Music="*res://Music.tscn"
+
 [display]
 
 window/stretch/mode="viewport"

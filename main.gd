@@ -23,6 +23,7 @@ var waiting_for_post_win_timer: bool = false
 	$Parallax2D/Stars4,
 	$Parallax2D/Stars5
 	]
+var music: AudioStream
 
 func _ready() -> void:
 	for i in range(1, 1000):
@@ -85,7 +86,7 @@ func _on_win() -> void:
 		next_gap = 100 + (level ** 4);
 	$GapGround.position.x = ground_spawn_x + next_gap;
 	
-	isk += round(distance / 100 * 1.2);
+	_inc_isk(round(distance / 100 * 1.2));
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.GREEN;
 	
@@ -94,12 +95,14 @@ func _on_win() -> void:
 func _on_ground_touched() -> void:
 	$Player/CharacterBody2D.can_move = false;
 	waiting_for_player_to_stop_after_ground_hit = true;
+	Music.crossfade_to_grounded(music)
 
 func _on_start() -> void:
 	if started:
 		printerr("Start triggered after already started!")
 		return
-		
+
+	Music.crossfade_to_airborne(music)
 	print("You've started!")
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.WHITE;
@@ -109,7 +112,7 @@ func _on_start() -> void:
 func _on_die() -> void:
 	print("You dead.")
 	
-	isk += round((distance / 100) * 0.5);
+	_inc_isk(round((distance / 100) * 0.5));
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.RED;
 	
@@ -134,6 +137,12 @@ func _reset() -> void:
 	waiting_for_player_to_stop_after_ground_hit = false;
 	waiting_for_post_win_timer = false;
 	started = false
+
+func _inc_isk(value: float) -> void:
+	var isk_inc = round(distance / 100 * 1.2);
+	isk += isk_inc;
+	
+	$CanvasLayer/IskLabel/IskPlusLabel.animate(isk_inc);
 	
 func _pin_line_marker_y(line: Sprite2D, spawn_y: float):
 	"""Pin a line marker (start/end) to the player sprite so that it can
