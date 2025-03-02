@@ -5,9 +5,10 @@ const BASE_MAX_ZOOM = 0.7;
 const BASE_MIN_ZOOM = 0.2;
 
 const SPEED = 800.0
-const MAX_JUMP_CHARGE = -5000
-const JUMP_GROWTH = 1250
 
+
+var max_jump_charge = -5000
+var jump_growth = 0
 var jump_charge = 0
 var stretch_ratio = 1
 var original_scale = Vector2()
@@ -31,6 +32,7 @@ func _reset() -> void:
 	velocity = Vector2(0,0)
 		
 	jump_charge = 0
+	jump_growth = -0.25 * max_jump_charge
 	is_jumping = false
 	can_move = true;
 	
@@ -41,13 +43,13 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 
 	if can_move:
-		if Input.is_action_pressed("ui_accept") and is_on_floor() and jump_charge > MAX_JUMP_CHARGE:
-			jump_charge -= JUMP_GROWTH * delta
+		if Input.is_action_pressed("ui_accept") and is_on_floor() and jump_charge > max_jump_charge:
+			jump_charge -= jump_growth * delta
 			$DirectionArrow.visible = true
 			$DirectionArrow.scale = original_scale
-			stretch_ratio = abs(jump_charge / MAX_JUMP_CHARGE)
+			stretch_ratio = abs(jump_charge / max_jump_charge)
 			$DirectionArrow.apply_scale(Vector2(1, stretch_ratio))
-			$DirectionArrow.modulate = gradient.sample(jump_charge / MAX_JUMP_CHARGE)
+			$DirectionArrow.modulate = gradient.sample(jump_charge / max_jump_charge)
 
 		if Input.is_action_just_released("ui_accept") and is_on_floor():
 			jump()
