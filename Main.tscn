@@ -490,6 +490,15 @@ border_width = 5.0
 editor_only = false
 script = ExtResource("18_hewb5")
 
+[node name="JumpMultiplier" type="Label" parent="ShopUI/ColorRect/MaxJumpPower"]
+layout_mode = 0
+offset_top = 121.0
+offset_right = 176.0
+offset_bottom = 144.0
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MaxJumpPower" type="Label" parent="ShopUI/ColorRect/MaxJumpPower"]
 layout_mode = 0
 offset_left = 3.0
@@ -505,18 +514,6 @@ position = Vector2(87, 48)
 scale = Vector2(4, 3.28125)
 texture = ExtResource("19_4ff8g")
 
-[node name="MaxJumpPowerUpgradeLevelStar1" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
-material = SubResource("ShaderMaterial_a6jua")
-position = Vector2(37, 130)
-scale = Vector2(1.3125, 1.375)
-texture = ExtResource("12_biktv")
-
-[node name="MaxJumpPowerUpgradeLevelStar2" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
-material = SubResource("ShaderMaterial_asany")
-position = Vector2(86, 129)
-scale = Vector2(1.3125, 1.375)
-texture = ExtResource("12_biktv")
-
 [node name="BuyMaxJumpPowerUpgrade" type="Button" parent="ShopUI/ColorRect/MaxJumpPower"]
 layout_mode = 0
 offset_left = 12.0
@@ -524,12 +521,6 @@ offset_top = 162.0
 offset_right = 139.0
 offset_bottom = 195.0
 text = "Buy Upgrade"
-
-[node name="MaxJumpPowerUpgradeLevelStar3" type="Sprite2D" parent="ShopUI/ColorRect/MaxJumpPower"]
-material = SubResource("ShaderMaterial_c3tlf")
-position = Vector2(138, 130)
-scale = Vector2(1.3125, 1.375)
-texture = ExtResource("12_biktv")
 
 [node name="LetsPlayButton" type="Button" parent="ShopUI/ColorRect"]
 layout_mode = 0

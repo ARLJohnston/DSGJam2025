@@ -1,58 +1,38 @@
 extends ReferenceRect
  
+const COST_MULTIPLIER = 1.5
 
-var upgrade_level : int = 0
-const MAX_LEVEL = 3 
-var cost = [30,90,270]  
+var current_multiplier : float = 1.0
 var current_isk : int
+var cost : int = 30
 
-enum MetalColor { BRONZE = 1, SILVER = 2, GOLD = 3 }
 signal isk_updated
-
-var metal_colors = {
-	MetalColor.BRONZE: Color("#CD7F32"), 
-	MetalColor.SILVER: Color("#C0C0C0"),   
-	MetalColor.GOLD: Color("#FFD700")     
-} 
 	
 	
 func _ready() -> void:
-	$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost[upgrade_level])  
+	$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost)  
 	current_isk =  get_parent().get_parent().get_parent().isk  
  
 func _process(delta: float) -> void:  
 	current_isk = get_parent().get_parent().get_parent().isk   
-	if upgrade_level >= 0 and upgrade_level < cost.size():   
-		var upgrade_cost = cost[upgrade_level]
-		if (current_isk < upgrade_cost):
-			$BuyMaxJumpPowerUpgrade.disabled = true  
-		else: 
-			$BuyMaxJumpPowerUpgrade.disabled = false  
-
-func get_metal_color(value: int) -> Color:
-	return metal_colors.get(value, Color(1, 1, 1)) 
+	if (current_isk < cost):
+		$BuyMaxJumpPowerUpgrade.disabled = true  
+	else: 
+		$BuyMaxJumpPowerUpgrade.disabled = false  
 
 
 func _on_buy_max_jump_power_upgrade_pressed() -> void: 
 	var current_isk = get_parent().get_parent().get_parent().isk  
-	var upgrade_cost = cost[upgrade_level] 
 	
 
-	if (current_isk >= upgrade_cost): 
-		if (upgrade_level < MAX_LEVEL):
-			upgrade_level += 1  
-			current_isk -= upgrade_cost 
-			emit_signal("isk_updated", current_isk) 
-			self.border_color = get_metal_color(upgrade_level)    
-			match upgrade_level:
-				1:
-					$MaxJumpPowerUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
-				2:
-					$MaxJumpPowerUpgradeLevelStar2.modulate = get_metal_color(MetalColor.SILVER) 
-				3:
-					$MaxJumpPowerUpgradeLevelStar3.modulate = get_metal_color(MetalColor.GOLD) 
-				_:
-					print("Invalid level")  
-					
-			if (upgrade_level != MAX_LEVEL):
-				$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost[upgrade_level])
+	if (current_isk >= cost): 
+		current_multiplier *= 1.1
+		print(current_multiplier)
+		$JumpMultiplier.text = "Current mult: %.2f" % current_multiplier
+		current_isk -= cost 
+		emit_signal("isk_updated", current_isk)
+		self.border_color = Color(randf(), randf(), randf(), 1)
+		$"../../../Player/CharacterBody2D".max_jump_charge *= 1.1
+		$"../../../Player/CharacterBody2D".jump_growth *= 1.05
+		cost *= COST_MULTIPLIER
+		$BuyMaxJumpPowerUpgrade.text = "Buy upgrade " + str(cost)
