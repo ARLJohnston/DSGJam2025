@@ -112,7 +112,7 @@ func _on_win() -> void:
 func _on_ground_touched() -> void:
 	$Player/CharacterBody2D.can_move = false;
 	waiting_for_player_to_stop_after_ground_hit = true;
-	Music.crossfade_to_grounded(music)
+	Music.crossfade_to_grounded()
 	
 
 func _on_start() -> void:
@@ -120,7 +120,7 @@ func _on_start() -> void:
 		printerr("Start triggered after already started!")
 		return
 
-	Music.crossfade_to_airborne(music)
+	Music.crossfade_to_airborne()
 	print("You've started!")
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.WHITE;
@@ -134,6 +134,7 @@ func _on_die() -> void:
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.RED;
 	
+	Music.crossfade_to_grounded()
 	_reset()
 
 func _reset() -> void:
