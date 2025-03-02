@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=49 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
@@ -25,6 +25,9 @@
 [ext_resource type="Texture2D" uid="uid://fawjf80pq5fw" path="res://assets/Doubledash.png" id="17_7ev66"]
 [ext_resource type="Script" path="res://max_jump_power.gd" id="18_hewb5"]
 [ext_resource type="Texture2D" uid="uid://bk622ywju1aeb" path="res://assets/arrow1.png" id="19_4ff8g"]
+[ext_resource type="AudioStream" uid="uid://dgojyil3qqoe7" path="res://assets/sfx/upgrade.wav" id="26_o0j4v"]
+[ext_resource type="AudioStream" uid="uid://7g87smgj6vrn" path="res://assets/sfx/land.wav" id="27_wvlho"]
+[ext_resource type="AudioStream" uid="uid://btjffbi0clpxk" path="res://assets/sfx/money.wav" id="28_7oo2j"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1te06"]
 
@@ -542,6 +545,9 @@ theme_override_colors/font_color = Color(1, 0.67451, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "§0 ISK"
 
+[node name="upgrade" type="AudioStreamPlayer2D" parent="ShopUI/ColorRect"]
+stream = ExtResource("26_o0j4v")
+
 [node name="Label" type="Label" parent="ShopUI"]
 offset_left = 345.0
 offset_top = 31.0
@@ -559,6 +565,12 @@ offset_right = -528.0
 offset_bottom = 502.0
 theme_override_font_sizes/font_size = 50
 text = "Buys tuff"
+
+[node name="landed" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("27_wvlho")
+
+[node name="money" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("28_7oo2j")
 
 [connection signal="body_entered" from="DeathZone/Area2D" to="DeathZone" method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="FixedGround/StartTrigger" to="FixedGround" method="_on_start_trigger_body_entered"]

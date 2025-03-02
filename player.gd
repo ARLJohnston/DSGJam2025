@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player;
 
+@onready var jump_sound := $Jump
+
 const BASE_MAX_ZOOM = 0.7;
 const BASE_MIN_ZOOM = 0.2;
 
@@ -76,6 +78,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func jump():
+	jump_sound.play(0.0)
 	is_jumping = true
 	var angle = $DirectionArrow.rotation
 	var direction = Vector2(cos(angle), sin(angle)).normalized()
