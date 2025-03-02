@@ -49,7 +49,6 @@ func _ready() -> void:
 	$ShopUI/ColorRect/Thrusters.isk_updated.connect(_on_isk_updated) 
 	$ShopUI/ColorRect/Jetpack.isk_updated.connect(_on_isk_updated)
 	
-	
 	_reset()
 
 func _process(delta: float) -> void:

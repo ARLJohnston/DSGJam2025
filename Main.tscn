@@ -31,8 +31,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ycip7"]
 size = Vector2(128, 2048)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_m5rkr"]
-size = Vector2(128, 2048)
+[sub_resource type="Gradient" id="Gradient_eqt4q"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ajsu4"]
+gradient = SubResource("Gradient_eqt4q")
+width = 128
+height = 2048
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="Gradient" id="Gradient_2ecsy"]
 offsets = PackedFloat32Array(0)
@@ -62,9 +68,6 @@ size = Vector2(128, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwww5"]
 size = Vector2(128, 2048)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_tsuic"]
-size = Vector2(128, 2048)
-
 [sub_resource type="Gradient" id="Gradient_r2hlu"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0)
@@ -80,11 +83,12 @@ metadata/_snap_enabled = true
 
 [sub_resource type="Gradient" id="Gradient_843x5"]
 interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.42623, 1)
+colors = PackedColorArray(0, 0.483333, 1, 0, 0, 0.452333, 0.59, 0.839216, 1, 0.633333, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_73a55"]
 gradient = SubResource("Gradient_843x5")
-fill_to = Vector2(0.256881, 0)
+fill_to = Vector2(0.299145, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a6jua"]
 shader = ExtResource("12_3jp6m")
@@ -205,7 +209,7 @@ shape = SubResource("RectangleShape2D_ycip7")
 
 [node name="Sprite2D" type="Sprite2D" parent="FixedGround/Ground"]
 position = Vector2(0, 960)
-texture = SubResource("PlaceholderTexture2D_m5rkr")
+texture = SubResource("GradientTexture2D_ajsu4")
 
 [node name="StartLine" type="Sprite2D" parent="FixedGround"]
 position = Vector2(263, -4684)
@@ -220,7 +224,7 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_v6ccp")
 
 [node name="GapGround" type="Node2D" parent="."]
-position = Vector2(6756, 500)
+position = Vector2(7367, 500)
 script = ExtResource("4_nokrs")
 
 [node name="LandingZone" type="Node2D" parent="GapGround"]
@@ -289,7 +293,7 @@ shape = SubResource("RectangleShape2D_hwww5")
 
 [node name="Sprite2D" type="Sprite2D" parent="GapGround/Ground"]
 position = Vector2(0, 960)
-texture = SubResource("PlaceholderTexture2D_tsuic")
+texture = SubResource("GradientTexture2D_ajsu4")
 
 [node name="FinishLine" type="Sprite2D" parent="GapGround"]
 position = Vector2(-6392, -5184)
@@ -304,6 +308,7 @@ scale = Vector2(100, 10000)
 texture = SubResource("GradientTexture2D_73a55")
 
 [node name="ShopUI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("9_vjbc7")
 
 [node name="ColorRect" type="ColorRect" parent="ShopUI"]
