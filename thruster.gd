@@ -3,7 +3,7 @@ extends ReferenceRect
 @onready var upgrade = $"../upgrade"
 var upgrade_level : int = 0
 const MAX_LEVEL = 3 
-var cost = [30,90,270]  
+var cost = [100,900,3000]  
 var current_isk : int
 
 enum MetalColor { BRONZE = 1, SILVER = 2, GOLD = 3 }
@@ -41,18 +41,24 @@ func _on_buy_thrust_upgrade_pressed() -> void:
 	if (current_isk >= upgrade_cost): 
 				
 		if (upgrade_level < MAX_LEVEL):
+			$"../../../CanvasLayer/ThrusterFuel".value = 1
+			upgrade_level += 1
+			$"../../../Player/CharacterBody2D".max_thruster_fuel = upgrade_level
+			$"../../../Player/CharacterBody2D".thruster_fuel = upgrade_level
 			upgrade.play(0.0)
-			upgrade_level += 1  
 			current_isk -= upgrade_cost 
 			emit_signal("isk_updated", current_isk) 
 			self.border_color = get_metal_color(upgrade_level)    
 			match upgrade_level:
 				1:
-					$ThrustersUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE) 
+					$ThrustersUpgradeLevelStar1.modulate = get_metal_color(MetalColor.BRONZE)
+					$"../../../Player/CharacterBody2D".thruster_power = 10
 				2:
 					$ThrustersUpgradeLevelStar1.modulate = get_metal_color(MetalColor.SILVER) 
+					$"../../../Player/CharacterBody2D".thruster_power = 15
 				3:
 					$ThrustersUpgradeLevelStar1.modulate = get_metal_color(MetalColor.GOLD) 
+					$"../../../Player/CharacterBody2D".thruster_power = 20
 				_:
 					print("Invalid level")  
 					
