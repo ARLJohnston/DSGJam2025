@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 Music="*res://Music.tscn"
+SignalManager="*res://signal_manager.gd"
 
 [display]
 
