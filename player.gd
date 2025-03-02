@@ -8,10 +8,15 @@ const BASE_MIN_ZOOM = 0.2;
 
 const SPEED = 800.0
 
-
 var max_jump_charge = -2000
 var jump_growth = 0
 var jump_charge = 0
+var jetpack_fuel = 0
+var max_jetpack_fuel = 0
+var thruster_fuel = 0
+var max_thruster_fuel = 0
+var jetpack_power = 0
+var thruster_power = 0
 var stretch_ratio = 1
 var original_scale = Vector2()
 var gravity = 980.0
@@ -45,6 +50,12 @@ func _reset() -> void:
 		
 	jump_charge = 0
 	jump_growth = -0.25 * max_jump_charge
+	jetpack_fuel = max_jetpack_fuel
+	thruster_fuel = max_thruster_fuel
+	if max_thruster_fuel != 0:
+		get_parent().get_parent().get_node("CanvasLayer/ThrusterFuel").value = (thruster_fuel/max_thruster_fuel)
+	if max_jetpack_fuel != 0:
+		get_parent().get_parent().get_node("CanvasLayer/JetpackFuel").value = (jetpack_fuel/max_jetpack_fuel)
 	is_jumping = false
 	can_move = true; 
 	x_jump_used = x_jump_upgrade
@@ -54,6 +65,20 @@ func _reset() -> void:
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		if Input.is_action_pressed("ui_accept") and jetpack_fuel > 0:
+			velocity.y -= jetpack_power
+			jetpack_fuel -= delta
+			if max_jetpack_fuel != 0:
+				get_parent().get_parent().get_node("CanvasLayer/JetpackFuel").value = (jetpack_fuel/max_jetpack_fuel)
+		
+		if (Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_right")) and thruster_fuel > 0:
+			thruster_fuel -= delta
+			if max_thruster_fuel != 0:
+				get_parent().get_parent().get_node("CanvasLayer/ThrusterFuel").value = (thruster_fuel/max_thruster_fuel)
+			if Input.is_action_pressed("ui_left"):
+				velocity.x -= thruster_power
+			else:
+				velocity.x += thruster_power
 
 	if can_move:
 		if Input.is_action_pressed("ui_accept") and is_on_floor():
