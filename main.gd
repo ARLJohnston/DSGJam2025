@@ -17,10 +17,12 @@ var waiting_for_player_to_stop_after_ground_hit: bool = false;
 var waiting_for_post_win_timer: bool = false
 
 @onready var stars = $Parallax2D.get_children()
+@onready var land_sound = $landed
+@onready var money_sound = $money
 var music: AudioStream
 
 func _ready() -> void:
-	for i in range(1, 100):
+	for i in range(1, randi_range(100, 250)):
 		var star = stars.pick_random()
 		$Parallax2D.add_child(star.duplicate())
 		
@@ -68,6 +70,7 @@ func _process(delta: float) -> void:
 			return
 		
 		print("You landed!")
+		land_sound.play(0.0)
 		
 		# Wait a while to let the player mentally process their landing.
 		# TODO: Disable user inputs until after here.
@@ -76,6 +79,7 @@ func _process(delta: float) -> void:
 		
 func _on_win() -> void:
 	print("You win.")
+	
 
 	# Scale the next "level" based on our previous distance but maintain the curve.
 	var next_gap = -INF;
@@ -98,6 +102,7 @@ func _on_win() -> void:
 		$GapGround/LandingZone.twox = false   
 	else: 
 		_inc_isk(reward_isk) 
+	money_sound.play(0.0)
 	
 	
 	$CanvasLayer/DistanceLabel.modulate = Color.GREEN;
@@ -108,6 +113,7 @@ func _on_ground_touched() -> void:
 	$Player/CharacterBody2D.can_move = false;
 	waiting_for_player_to_stop_after_ground_hit = true;
 	Music.crossfade_to_grounded(music)
+	
 
 func _on_start() -> void:
 	if started:
