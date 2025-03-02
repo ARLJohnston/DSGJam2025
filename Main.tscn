@@ -1,13 +1,19 @@
-[gd_scene load_steps=40 format=3 uid="uid://d0gc6623t2x7m"]
+[gd_scene load_steps=46 format=3 uid="uid://d0gc6623t2x7m"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fcgpp"]
 [ext_resource type="PackedScene" uid="uid://c4qgv5qa7nm5j" path="res://Player.tscn" id="1_uw5wn"]
 [ext_resource type="Script" path="res://death_zone.gd" id="2_kugpk"]
 [ext_resource type="Theme" uid="uid://blds05q2wf618" path="res://theme.tres" id="2_nv8g0"]
+[ext_resource type="Texture2D" uid="uid://m6ik6xvni4pf" path="res://assets/Stars.png" id="2_pibt5"]
 [ext_resource type="Script" path="res://isk_plus_label.gd" id="3_4iuo4"]
+[ext_resource type="Texture2D" uid="uid://cue7y225mjr0w" path="res://assets/Stars_2.png" id="3_v40wt"]
 [ext_resource type="Script" path="res://gap_ground.gd" id="4_nokrs"]
 [ext_resource type="Script" path="res://fixed_ground.gd" id="4_r48j6"]
+[ext_resource type="Texture2D" uid="uid://dh8r1nd3evs3d" path="res://assets/Stars_3.png" id="4_xkqpf"]
+[ext_resource type="Texture2D" uid="uid://bhedfoo8of0xd" path="res://assets/Stars_4.png" id="5_6e0wi"]
 [ext_resource type="Script" path="res://landing_zone.gd" id="5_gt764"]
+[ext_resource type="Texture2D" uid="uid://dhdcriyqhoj82" path="res://assets/Stars_5.png" id="6_ye57w"]
+[ext_resource type="Texture2D" uid="uid://dxid5ejls2tgq" path="res://assets/Star_4.png" id="7_87vog"]
 [ext_resource type="Script" path="res://shop_ui.gd" id="9_vjbc7"]
 [ext_resource type="Script" path="res://jetpack.gd" id="10_hpg0v"]
 [ext_resource type="Texture2D" uid="uid://b72b14pexxqs3" path="res://assets/Jetpack.png" id="10_lwx5p"]
@@ -91,6 +97,34 @@ shader = ExtResource("12_3jp6m")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fcgpp")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+texture_repeat = 2
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="Stars" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(68, -18)
+texture = ExtResource("2_pibt5")
+
+[node name="Stars2" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(68, -18)
+texture = ExtResource("3_v40wt")
+
+[node name="Stars3" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(68, -18)
+texture = ExtResource("4_xkqpf")
+
+[node name="Stars4" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(68, -18)
+texture = ExtResource("5_6e0wi")
+
+[node name="Stars5" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(68, -18)
+texture = ExtResource("6_ye57w")
+
+[node name="Star4" type="Sprite2D" parent="Parallax2D"]
+position = Vector2(63, -20)
+texture = ExtResource("7_87vog")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -499,6 +533,7 @@ theme_override_font_sizes/font_size = 50
 text = "Let's Play !"
 
 [node name="IskLabel" type="Label" parent="ShopUI/ColorRect"]
+layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 310.0

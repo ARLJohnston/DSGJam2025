@@ -15,9 +15,25 @@ var started: bool = false;
 var waiting_for_player_to_stop_after_ground_hit: bool = false;
 var waiting_for_post_win_timer: bool = false
 
+@onready var stars = [
+	$Parallax2D/Star4,
+	$Parallax2D/Stars,
+	$Parallax2D/Stars2,
+	$Parallax2D/Stars3,
+	$Parallax2D/Stars4,
+	$Parallax2D/Stars5
+	]
 var music: AudioStream
 
 func _ready() -> void:
+	for i in range(1, 1000):
+		var star = stars.pick_random()
+		$Parallax2D.add_child(star.duplicate())
+		
+	for star in $Parallax2D.get_children():
+		star.position = Vector2(randi_range(0, 25000), randi_range(-25000, 0))
+
+		
 	player_spawn = $Player/CharacterBody2D.position;
 	ground_spawn_x = $GapGround.position.x;
 	
@@ -103,6 +119,9 @@ func _on_die() -> void:
 	_reset()
 
 func _reset() -> void:
+	for star in $Parallax2D.get_children():
+		star.position = Vector2(randi_range(0, 25000), randi_range(-25000, 0))
+	
 	$GapGround/Ground.position.x = 0;
 	$GapGround/LandingZone.has_scored = false
 	
